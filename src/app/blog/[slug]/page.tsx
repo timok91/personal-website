@@ -46,8 +46,10 @@ function processMarkdown(content: string) {
   }
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  // We no longer need to await params as we're using a non-async function now
+// Use proper typing for the page component in App Router
+export default function BlogPost({ params }: { 
+  params: { slug: string } 
+}) {
   const slug = params.slug || 'not-found';
  
   try {
