@@ -43,9 +43,8 @@ async function processMarkdown(content: string): Promise<string> {
 
 // Async page component for dynamic routes
 export default async function BlogPost({ params }: { params: { slug: string } }) {
-  // Await params to satisfy Next.js dynamic parameter requirements
-  const resolvedParams = await Promise.resolve(params);
-  const slug = resolvedParams.slug || 'not-found';
+  // Directly use params without awaiting
+  const slug = params.slug || 'not-found';
 
   const postsDirectory = path.join(process.cwd(), 'src', 'posts');
   const filePath = path.join(postsDirectory, `${slug}.mdx`);
@@ -53,8 +52,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   // Check if the file exists asynchronously
   try {
     await fs.promises.access(filePath);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_err) {
+  } catch {
     return (
       <div className="blog-post-container">
         <h1>Post Not Found</h1>
