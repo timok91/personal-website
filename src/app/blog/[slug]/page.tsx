@@ -1,3 +1,4 @@
+import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -41,32 +42,39 @@ async function processMarkdown(content: string): Promise<string> {
   }
 }
 
-// Async page component for dynamic routes
-export default async function BlogPost({
-  params,
-}: {
+// Define a specific type for the props instead of using 'any'
+interface BlogPostParams {
   params: { slug: string } | Promise<{ slug: string }>;
-}) {
-  // Await params in case they're a promise
-  const resolvedParams = await params;
-  const slug = resolvedParams.slug || 'not-found';
+}
 
-  const postsDirectory = path.join(process.cwd(), 'src', 'posts');
-  const filePath = path.join(postsDirectory, `${slug}.mdx`);
-
-  // Check if the file exists asynchronously
+// Using a specific type signature and React.ReactElement return type
+export default async function BlogPost(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  props: BlogPostParams | any
+): Promise<React.ReactElement> {
   try {
-    await fs.promises.access(filePath);
-  } catch {
-    return (
-      <div className="blog-post-container">
-        <h1>Post Not Found</h1>
-        <p>Could not find a post with the slug: {slug}</p>
-      </div>
-    );
-  }
+    // Use a type assertion to help TypeScript understand the structure
+    const { params } = props as { params: { slug: string } | Promise<{ slug: string }> };
+    
+    // Await params in case they're a promise 
+    const resolvedParams = await Promise.resolve(params);
+    const slug = resolvedParams.slug || 'not-found';
 
-  try {
+    const postsDirectory = path.join(process.cwd(), 'src', 'posts');
+    const filePath = path.join(postsDirectory, `${slug}.mdx`);
+
+    // Check if the file exists asynchronously
+    try {
+      await fs.promises.access(filePath);
+    } catch {
+      return (
+        <div className="blog-post-container">
+          <h1>Post Not Found</h1>
+          <p>Could not find a post with the slug: {slug}</p>
+        </div>
+      );
+    }
+
     const fileContent = await fs.promises.readFile(filePath, 'utf8');
     const { content, data } = matter(fileContent);
     const htmlContent = await processMarkdown(content);

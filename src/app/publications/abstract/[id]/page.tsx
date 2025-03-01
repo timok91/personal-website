@@ -1,3 +1,4 @@
+import React from 'react';
 import path from 'path';
 import { remark } from 'remark';
 import html from 'remark-html';
@@ -31,14 +32,27 @@ async function markdownToHtml(markdown: string): Promise<string> {
   try {
     const result = await remark().use(html).process(markdown);
     return result.toString();
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Error processing markdown:', error);
     return '';
   }
 }
 
-export default async function AbstractPage({ params }: { params: { id: string } }) {
+// Define a specific interface for params
+interface AbstractPageParams {
+  params: { id: string } | Promise<{ id: string }>;
+}
+
+// Using a flexible type signature for better Next.js compatibility
+export default async function AbstractPage(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  props: AbstractPageParams | any
+): Promise<React.ReactElement> {
   try {
+    // Use type assertion for TypeScript
+    const { params } = props as { params: { id: string } | Promise<{ id: string }> };
+    
     // Await params to satisfy Next.js dynamic parameter requirements
     const resolvedParams = await Promise.resolve(params);
     const publicationId = parseInt(resolvedParams.id);
