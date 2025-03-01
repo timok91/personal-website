@@ -17,14 +17,15 @@ export async function generateStaticParams() {
 
   try {
     const filenames = await fs.promises.readdir(postsDirectory);
+
     // Get all .mdx files and convert to slug params
     return filenames
-      .filter(filename => filename.endsWith('.mdx'))
-      .map(filename => ({
-        slug: filename.replace(/\.mdx$/, '')
+      .filter((filename) => filename.endsWith('.mdx'))
+      .map((filename) => ({
+        slug: filename.replace(/\.mdx$/, ''),
       }));
   } catch (error) {
-    console.error("Error reading posts directory:", error);
+    console.error('Error reading posts directory:', error);
     return [];
   }
 }
@@ -32,9 +33,7 @@ export async function generateStaticParams() {
 // Process markdown content to HTML asynchronously
 async function processMarkdown(content: string): Promise<string> {
   try {
-    const processedContent = await remark()
-      .use(html)
-      .process(content);
+    const processedContent = await remark().use(html).process(content);
     return processedContent.toString();
   } catch (error) {
     console.error('Error processing markdown:', error);
@@ -54,7 +53,8 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   // Check if the file exists asynchronously
   try {
     await fs.promises.access(filePath);
-  } catch (err) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_err) {
     return (
       <div className="blog-post-container">
         <h1>Post Not Found</h1>
@@ -76,7 +76,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       />
     );
   } catch (error) {
-    console.error("Error loading blog post:", error);
+    console.error('Error loading blog post:', error);
     return (
       <div className="blog-post-container">
         <h1>Error Loading Post</h1>
