@@ -1,0 +1,147 @@
+.resume-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.resume-section {
+  margin-bottom: 3rem;
+}
+
+.resume-item {
+  margin-bottom: 1.5rem;
+}
+
+.institution {
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.date {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background-color: var(--accent-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.download-resume {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.button:hover {
+  background-color: #2a75e0;
+  text-decoration: none;
+}
+
+/* PDF Viewer Specific Styles */
+.resume-pdf-container {
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: var(--light-gray);
+  border-radius: 8px;
+}
+
+.pdf-viewer {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.pdf-control-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.pdf-control-btn:hover:not(:disabled) {
+  background-color: #2a75e0;
+}
+
+.pdf-control-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pdf-download {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* Make sure the PDF viewer is responsive */
+@media (max-width: 768px) {
+  .pdf-viewer canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .pdf-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Loading indicator for the PDF */
+.react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.react-pdf__message {
+  margin: 2rem 0;
+  font-style: italic;
+  color: #666;
+}
+
+/* Page styles */
+.react-pdf__Page {
+  margin: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.react-pdf__Page__canvas {
+  display: block;
+  max-width: 100%;
+  height: auto !important;
+}

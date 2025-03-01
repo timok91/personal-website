@@ -1,0 +1,17 @@
+[
+    {
+      "title": "Automated Item-Generation and Validation",
+      "description": "I created a web application for automatically generating psychometric items via LLM. Embedding of the generated items are then created with sBERT. Afterwards, cosine similarity between items can be calculated and visualized and pseudo-factor analysis is employed to identify items that negatively affect factor structure.",
+      "image": "ai-tool1.gif",
+      "technologies": ["Python", "Streamlit", "sBERT", "Claude API"],
+      "demo": "https://demo-url.com"
+    },
+    {
+      "title": "Project Name 2",
+      "description": "Description of another project you've worked on.",
+      "image": "project2.jpg",
+      "technologies": ["Python", "TensorFlow", "Flask"],
+      "demo": "https://demo-url-2.com",
+      "code": "https://github.com/yourusername/project-repo-2"
+    }
+  ]

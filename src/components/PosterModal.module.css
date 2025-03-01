@@ -1,0 +1,145 @@
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  
+  .modal {
+    background-color: white;
+    border-radius: 8px;
+    max-width: 95%;
+    max-height: 95%;
+    overflow: auto;
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+  
+  .closeButton:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  .imageContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
+  
+  .posterImage {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .zoomControls {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .instructions {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0 10px 0;
+  }
+  
+  .tools {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 5px;
+    z-index: 20;
+  }
+  
+  .zoomButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid #ddd;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .zoomButton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .open {
+    animation: fadeIn 0.3s forwards;
+  }
+  
+  .closed {
+    animation: fadeOut 0.3s forwards;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  
+  @media (max-width: 768px) {
+    .modal {
+      padding: 15px;
+      max-width: 100%;
+      max-height: 95%;
+    }
+    
+    .tools {
+      bottom: 15px;
+      right: 15px;
+    }
+    
+    .zoomButton {
+      width: 36px;
+      height: 36px;
+    }
+  }
