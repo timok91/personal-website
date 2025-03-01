@@ -7,9 +7,7 @@ import '../styles/resume.css';
 import '../styles/projects.css';
 import '../styles/blog.css';
 import Navigation from '../components/Navigation';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Analytics } from "@vercel/analytics/react";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Analytics } from "@vercel/analytics/react"; 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
@@ -44,6 +42,8 @@ export default function RootLayout({
         </main>
         <footer>
           <p>© {new Date().getFullYear()} Timo Krug</p>
+          <Analytics />
+          <SpeedInsights />
         </footer>
       </body>
     </html>
