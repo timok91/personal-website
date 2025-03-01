@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import publications from '../../data/publications.json';
 import PosterModal from '../../components/PosterModal';
@@ -18,70 +18,65 @@ interface Publication {
 }
 
 export default function Publications() {
-  // State to track which poster is currently being displayed
-  const [activePoster, setActivePoster] = useState<{index: number, path: string, title: string} | null>(null);
-  
-  // Function to open the poster modal
-  const openPoster = (index: number, path: string, title: string) => {
-    setActivePoster({index, path, title});
-  };
-  
-  // Function to close the poster modal
-  const closePoster = () => {
+  const [activePoster, setActivePoster] = useState<{
+    index: number;
+    path: string;
+    title: string;
+  } | null>(null);
+
+  // Memoize functions to avoid unnecessary re-renders
+  const openPoster = useCallback((index: number, path: string, title: string) => {
+    setActivePoster({ index, path, title });
+  }, []);
+
+  const closePoster = useCallback(() => {
     setActivePoster(null);
-  };
-  
+  }, []);
+
   return (
     <div className="publications-container">
       <h1>Academic Publications</h1>
-      
       <div className="publications-list">
         {publications.map((pub: Publication, index: number) => (
           <div key={index} className="publication-item">
             <h3>{pub.title}</h3>
             <p className="authors">{pub.authors}</p>
-            <p className="venue">{pub.venue}, {pub.year}</p>
-            
+            <p className="venue">
+              {pub.venue}, {pub.year}
+            </p>
             <div className="links">
-              {/* Conditional rendering for PDF link */}
               {pub.pdf && (
-                <Link 
-                  href={`/papers/${pub.pdf}`} 
-                  target="_blank" 
+                <Link
+                  href={`/papers/${pub.pdf}`}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="publication-link"
                 >
                   PDF
                 </Link>
               )}
-              
-              {/* Conditional rendering for DOI link */}
               {pub.doi && (
-                <Link 
-                  href={`https://doi.org/${pub.doi}`} 
-                  target="_blank" 
+                <Link
+                  href={`https://doi.org/${pub.doi}`}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="publication-link"
                 >
                   DOI
                 </Link>
               )}
-              
-              {/* Conditional rendering for Code link */}
               {pub.code && (
-                <Link 
-                  href={pub.code} 
-                  target="_blank" 
+                <Link
+                  href={pub.code}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="publication-link"
                 >
                   Code
                 </Link>
               )}
-              
-              {/* Conditional rendering for Poster button */}
               {pub.poster && (
-                <button 
+                <button
                   className="publication-link button-link"
                   onClick={() => openPoster(index, pub.poster!, pub.title)}
                   aria-label={`View poster for ${pub.title}`}
@@ -89,13 +84,8 @@ export default function Publications() {
                   Poster
                 </button>
               )}
-              
-              {/* Conditional rendering for Abstract link */}
               {pub.abstractFile && (
-                <Link 
-                  href={`/publications/abstract/${index}`}
-                  className="publication-link"
-                >
+                <Link href={`/publications/abstract/${index}`} className="publication-link">
                   Abstract
                 </Link>
               )}
@@ -103,11 +93,9 @@ export default function Publications() {
           </div>
         ))}
       </div>
-      
-      {/* Render the poster modal only when a poster is active */}
       {activePoster && (
         <PosterModal
-          isOpen={!!activePoster}
+          isOpen={true}
           posterPath={activePoster.path}
           title={activePoster.title}
           onClose={closePoster}

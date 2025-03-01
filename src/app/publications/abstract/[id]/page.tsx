@@ -1,27 +1,33 @@
-import fs from 'fs';
 import path from 'path';
 import { remark } from 'remark';
 import html from 'remark-html';
 import publications from '../../../../data/publications.json';
 import Link from 'next/link';
+import { promises as fs } from 'fs';
 
 // This function tells Next.js which static pages to generate
 export async function generateStaticParams() {
-  return publications
-    .map((_, index) => ({ id: index.toString() })); 
+  return publications.map((_, index) => ({ id: index.toString() }));
 }
 
-// Process markdown to HTML
-async function markdownToHtml(markdown: string) {
-  const result = await remark().use(html).process(markdown);
-  return result.toString();
+// Process markdown to HTML asynchronously
+async function markdownToHtml(markdown: string): Promise<string> {
+  try {
+    const result = await remark().use(html).process(markdown);
+    return result.toString();
+  } catch (error) {
+    console.error('Error processing markdown:', error);
+    return '';
+  }
 }
 
 export default async function AbstractPage({ params }: { params: { id: string } }) {
   try {
-    const publicationId = parseInt(params.id);
+    // Await params to satisfy Next.js dynamic parameter requirements
+    const resolvedParams = await Promise.resolve(params);
+    const publicationId = parseInt(resolvedParams.id);
     const publication = publications[publicationId];
-   
+    
     if (!publication) {
       return (
         <div className="abstract-container">
@@ -31,24 +37,24 @@ export default async function AbstractPage({ params }: { params: { id: string } 
         </div>
       );
     }
-   
+    
     const abstractFilePath = publication.abstractFile || "";
     const fullPath = path.join(process.cwd(), 'public', abstractFilePath);
-   
+    
     let abstractContent = "";
     let fileExists = false;
-   
+    
     try {
-      fileExists = fs.existsSync(fullPath);
-      if (fileExists) {
-        const rawContent = fs.readFileSync(fullPath, 'utf8');
-        // Convert markdown to HTML
-        abstractContent = await markdownToHtml(rawContent);
-      }
+      // Check if the file is accessible
+      await fs.access(fullPath);
+      fileExists = true;
+      const rawContent = await fs.readFile(fullPath, 'utf8');
+      abstractContent = await markdownToHtml(rawContent);
     } catch (error) {
-      console.error("File read error:", error);
+      console.error("File access/read error:", error);
+      fileExists = false;
     }
-   
+    
     return (
       <div className="abstract-container">
         <h1>{publication.title}</h1>
@@ -57,7 +63,6 @@ export default async function AbstractPage({ params }: { params: { id: string } 
        
         <div className="abstract-content">
           <h2>Abstract</h2>
-         
           {fileExists ? (
             <div dangerouslySetInnerHTML={{ __html: abstractContent }} />
           ) : (
