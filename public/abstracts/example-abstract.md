@@ -15,5 +15,5 @@ Department of Cognition, Emotion, and Methods in Psychology, University of Vienn
 
 ### Citation
 
-Krug, T., Müllner-Huber, A., Stöffel, T., & Lamm, C. (2025, February 24-26). *"I see you": Pupillometric assessment of the causal role of affect sharing in vicarious fear learning* [Poster Presentation]. CoBeNe PhD Academy 2025, Vienna, Austria.
+Krug, T., Müllner-Huber, A., Stöffel, T., & Lamm, C. (2025, February 24-26). *"I see you": Pupillometric assessment of the causal role of affect sharing in vicarious fear learning* [Poster presentation]. CoBeNe PhD Academy 2025, Vienna, Austria.
 

@@ -1,6 +1,6 @@
 [
     {
-      "title": "'I see you': Pupillometric assessment of the causal role of affect sharing in vicarious fear learning [Poster Presentation]",
+      "title": "'I see you': Pupillometric assessment of the causal role of affect sharing in vicarious fear learning [Poster presentation]",
       "authors": "Timo Krug, Alexa Müllner-Huber, Tibor Stöffel, Claus Lamm",
       "venue": "CoBeNe PhD Academy",
       "year": 2025,
@@ -8,12 +8,10 @@
       "abstractFile": "abstracts/example-abstract.md"
     },
     {
-      "title": "Example Publication Title 2",
-      "authors": "Your Name, Another Co-author",
-      "venue": "Conference on Significant Topics",
-      "year": 2022,
-      "pdf": "example-paper-2.pdf",
-      "doi": "10.1234/example.9012",
-      "code": "https://github.com/yourusername/research-project-2"
+      "title": "The role of affect sharing in observational fear learning: Comparing skin conductance, pupil size and fMRI data [Poster presentation]",
+      "authors": "Müllner-Huber, A., Krug, T., Olsson, A., & Lamm, C.",
+      "venue": "FENS Forum",
+      "year": 2024,
+      "abstractFile": "abstracts/abstract-fens2024.mdx"
     }
   ]
