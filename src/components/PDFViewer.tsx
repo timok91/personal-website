@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
@@ -44,7 +45,7 @@ export default function PDFViewer({ pdfUrl }: PDFViewerProps) {
       {error ? (
         <div className="pdf-error">
           <p>{error}</p>
-          <p>You can still <a href={pdfUrl} download className="button">download the PDF</a></p>
+          <p>You can still <Link href={pdfUrl} download className="button">download the PDF</Link></p>
         </div>
       ) : (
         <>
@@ -87,9 +88,9 @@ export default function PDFViewer({ pdfUrl }: PDFViewerProps) {
       )}
       
       <div className="pdf-download">
-        <a href={pdfUrl} download className="button">
+        <Link href={pdfUrl} download className="button">
           Download PDF
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React from 'react';
 
 interface PDFEmbedProps {
@@ -24,9 +25,9 @@ export default function PDFEmbed({ pdfUrl }: PDFEmbedProps) {
       </div>
       
       <div className="pdf-download">
-        <a href={pdfUrl} download className="button">
+        <Link href={pdfUrl} download className="button">
           Download PDF
-        </a>
+        </Link>
       </div>
     </div>
   );

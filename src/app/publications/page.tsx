@@ -45,38 +45,38 @@ export default function Publications() {
             <div className="links">
               {/* Conditional rendering for PDF link */}
               {pub.pdf && (
-                <a 
+                <Link 
                   href={`/papers/${pub.pdf}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="publication-link"
                 >
                   PDF
-                </a>
+                </Link>
               )}
               
               {/* Conditional rendering for DOI link */}
               {pub.doi && (
-                <a 
+                <Link 
                   href={`https://doi.org/${pub.doi}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="publication-link"
                 >
                   DOI
-                </a>
+                </Link>
               )}
               
               {/* Conditional rendering for Code link */}
               {pub.code && (
-                <a 
+                <Link 
                   href={pub.code} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="publication-link"
                 >
                   Code
-                </a>
+                </Link>
               )}
               
               {/* Conditional rendering for Poster button */}

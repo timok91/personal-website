@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import projects from '../../data/projects.json';
 import Image from 'next/image';
 
@@ -39,14 +40,14 @@ export default function Projects() {
               </div>
               <div className="project-links">
                 {project.demo && (
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                  <Link href={project.demo} target="_blank" rel="noopener noreferrer">
                     Live Demo
-                  </a>
+                  </Link>
                 )}
                 {project.code && (
-                  <a href={project.code} target="_blank" rel="noopener noreferrer">
+                  <Link href={project.code} target="_blank" rel="noopener noreferrer">
                     Source Code
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>
