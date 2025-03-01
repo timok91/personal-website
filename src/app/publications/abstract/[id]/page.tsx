@@ -8,7 +8,7 @@ import Link from 'next/link';
 // This function tells Next.js which static pages to generate
 export async function generateStaticParams() {
   return publications
-    .map((_, index) => ({ id: index.toString() }));
+    .map((_, index) => ({ id: index.toString() })); 
 }
 
 // Process markdown to HTML
