@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /** @type {import('next').NextConfig} */
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
