@@ -9,6 +9,7 @@ interface Project {
   technologies: string[];
   demo?: string;
   code?: string;
+  blogSlug?: string;
 }
 
 export default function Projects() {
@@ -47,6 +48,11 @@ export default function Projects() {
                 {project.code && (
                   <Link href={project.code} target="_blank" rel="noopener noreferrer">
                     Source Code
+                  </Link>
+                )}
+                {project.blogSlug && (
+                  <Link href={`/blog/${project.blogSlug}`} className="details-button">
+                    Details
                   </Link>
                 )}
               </div>

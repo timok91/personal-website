@@ -1,9 +1,25 @@
 import path from 'path';
 import { remark } from 'remark';
 import html from 'remark-html';
-import publications from '../../../../data/publications.json';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
+import publicationsData from '../../../../data/publications.json';
+
+// Define the Publication interface with an optional abstractFile property
+interface Publication {
+  title: string;
+  authors: string;
+  venue: string;
+  year: number;
+  pdf?: string;
+  doi?: string;
+  code?: string;
+  poster?: string;
+  abstractFile?: string;
+}
+
+// Cast the imported JSON data to an array of Publication objects
+const publications = publicationsData as Publication[];
 
 // This function tells Next.js which static pages to generate
 export async function generateStaticParams() {
@@ -38,6 +54,7 @@ export default async function AbstractPage({ params }: { params: { id: string } 
       );
     }
     
+    // Use the optional abstractFile property if it exists, or default to an empty string.
     const abstractFilePath = publication.abstractFile || "";
     const fullPath = path.join(process.cwd(), 'public', abstractFilePath);
     
@@ -59,7 +76,9 @@ export default async function AbstractPage({ params }: { params: { id: string } 
       <div className="abstract-container">
         <h1>{publication.title}</h1>
         <p className="authors">{publication.authors}</p>
-        <p className="venue">{publication.venue}, {publication.year}</p>
+        <p className="venue">
+          {publication.venue}, {publication.year}
+        </p>
        
         <div className="abstract-content">
           <h2>Abstract</h2>

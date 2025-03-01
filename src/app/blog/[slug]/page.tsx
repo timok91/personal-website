@@ -42,9 +42,14 @@ async function processMarkdown(content: string): Promise<string> {
 }
 
 // Async page component for dynamic routes
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  // Directly use params without awaiting
-  const slug = params.slug || 'not-found';
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string } | Promise<{ slug: string }>;
+}) {
+  // Await params in case they're a promise
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug || 'not-found';
 
   const postsDirectory = path.join(process.cwd(), 'src', 'posts');
   const filePath = path.join(postsDirectory, `${slug}.mdx`);
