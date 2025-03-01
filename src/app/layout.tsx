@@ -7,6 +7,8 @@ import '../styles/resume.css';
 import '../styles/projects.css';
 import '../styles/blog.css';
 import Navigation from '../components/Navigation';
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
