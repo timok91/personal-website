@@ -7,7 +7,9 @@ import '../styles/resume.css';
 import '../styles/projects.css';
 import '../styles/blog.css';
 import Navigation from '../components/Navigation';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Analytics } from "@vercel/analytics/react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
