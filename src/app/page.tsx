@@ -36,14 +36,14 @@ export default function Home() {
           
           <div className="featured-item">
             <h3>Recent Blog Post</h3>
-            <p>"Title of your latest blog post"</p>
+            <p>&quot;Title of your latest blog post&quot;</p>
             <p> --- </p>
             <a href="/blog">View All Posts</a>
           </div>
           
           <div className="featured-item">
             <h3>Featured Project</h3>
-            <p>"Automated Item-Generation and Validation"</p>
+            <p>&quot;Automated Item-Generation and Validation&quot;</p>
             <p> --- </p>
             <a href="/projects">View All Projects</a>
           </div>
