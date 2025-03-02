@@ -2,6 +2,7 @@ import React from 'react';
 import path from 'path';
 import { remark } from 'remark';
 import html from 'remark-html';
+import supersub from 'remark-supersub';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 import publicationsData from '../../../../data/publications.json';
@@ -30,7 +31,10 @@ export async function generateStaticParams() {
 // Process markdown to HTML asynchronously
 async function markdownToHtml(markdown: string): Promise<string> {
   try {
-    const result = await remark().use(html).process(markdown);
+    const result = await remark()
+      .use(supersub)  
+      .use(html)
+      .process(markdown);
     return result.toString();
   }
   catch (error) {

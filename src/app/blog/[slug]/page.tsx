@@ -4,6 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import supersub from 'remark-supersub';
 import BlogPostClient from '../../../components/BlogPostClient';
 
 // This function tells Next.js which static pages to generate
@@ -34,7 +35,10 @@ export async function generateStaticParams() {
 // Process markdown content to HTML asynchronously
 async function processMarkdown(content: string): Promise<string> {
   try {
-    const processedContent = await remark().use(html).process(content);
+    const processedContent = await remark()
+      .use(supersub) // Add this line
+      .use(html)
+      .process(content);
     return processedContent.toString();
   } catch (error) {
     console.error('Error processing markdown:', error);

@@ -24,7 +24,8 @@
     "react-zoom-pan-pinch": "^3.7.0",
     "remark": "^15.0.1",
     "remark-footnotes": "^4.0.1",
-    "remark-html": "^16.0.1"
+    "remark-html": "^16.0.1",
+    "remark-supersub": "^1.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
