@@ -6,6 +6,7 @@ import '../styles/publications.css';
 import '../styles/resume.css';
 import '../styles/projects.css';
 import '../styles/blog.css';
+import '../styles/about.css'; // Add the new about.css file
 import Navigation from '../components/Navigation';
 import { Analytics } from "@vercel/analytics/react"; 
 import { SpeedInsights } from "@vercel/speed-insights/next";

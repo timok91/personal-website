@@ -10,6 +10,7 @@ export default function Navigation() {
       </div>
       <div className="nav-links">
         <Link href="/">Home</Link>
+        <Link href="/about">About</Link>  {/* Add this line */}
         <Link href="/publications">Publications</Link>
         <Link href="/blog">Blog</Link>
         <Link href="/resume">Resume</Link>
