@@ -13,11 +13,15 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  weight: ['300', '400', '500', '600'], 
+  display: 'swap', 
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: ['300', '400', '500', '600'], // Only load weights you actually use
+  display: 'swap',
 });
 
 export const metadata: Metadata = {

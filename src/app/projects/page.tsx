@@ -28,6 +28,9 @@ export default function Projects() {
                   width={300}
                   height={200}
                   style={{ objectFit: 'cover' }}
+                  loading="lazy" 
+                  placeholder="blur" 
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAEtAI8QiRH2AAAAABJRU5ErkJggg==" 
                 />
               </div>
             )}

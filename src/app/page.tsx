@@ -10,10 +10,11 @@ export default function Home() {
           <div className="profile-image">
             <Image 
               src="/images/profile.png" 
-              alt="" 
+              alt="Profile picture" 
               width={200} 
               height={200}
-              priority
+              priority={true} 
+              quality={80} 
               className="profile-photo"
             />
           </div>

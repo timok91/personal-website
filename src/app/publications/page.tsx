@@ -3,7 +3,11 @@
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import publications from '../../data/publications.json';
-import PosterModal from '../../components/PosterModal';
+import dynamic from 'next/dynamic';
+const PosterModal = dynamic(() => import('../../components/PosterModal'), {
+  loading: () => <p>Loading poster viewer...</p>,
+  ssr: false // Modal doesn't need server-side rendering
+});
 
 interface Publication {
   title: string;
