@@ -7,6 +7,8 @@ import html from 'remark-html';
 import supersub from 'remark-supersub';
 import BlogPostClient from '../../../components/BlogPostClient';
 
+export const revalidate = 3600; // Revalidate every hour
+
 // This function tells Next.js which static pages to generate
 export async function generateStaticParams() {
   const postsDirectory = path.join(process.cwd(), 'src', 'posts');

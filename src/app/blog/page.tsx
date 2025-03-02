@@ -3,6 +3,8 @@ import matter from 'gray-matter';
 import Link from 'next/link';
 import { promises as fs } from 'fs';
 
+export const revalidate = 3600; // Revalidate every hour
+
 interface PostFrontMatter {
   title: string;
   date: string;

@@ -145,3 +145,74 @@
   max-width: 100%;
   height: auto !important;
 }
+
+/* Add these styles to your resume.css file */
+
+.pdf-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-style: italic;
+  color: #666;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.pdf-loading-document {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  font-style: italic;
+  color: #666;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.pdf-document-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-error {
+  background-color: #fff3f3;
+  border-left: 4px solid #ff6b6b;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+/* Improve accessibility for PDF controls */
+.pdf-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  justify-content: center;
+}
+
+.pdf-control-btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Add loading animation */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.pdf-loading, .pdf-loading-document {
+  animation: pulse 1.5s infinite ease-in-out;
+}
