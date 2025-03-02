@@ -43,6 +43,7 @@ export default async function ResumePage(): Promise<React.ReactElement> {
       const { content, data } = matter(fileContent);
       htmlContent = await processMarkdown(content);
       title = data.title as string || 'Resume';
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       // If file doesn't exist, we'll just use an empty content string
       // and continue with the PDF viewer
