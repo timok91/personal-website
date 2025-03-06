@@ -57,7 +57,6 @@ export default function Home() {
         <h2>Contact</h2>
         <p>Email: </p>
         <div className="social-links">
-          <Link href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</Link>
           <Link href="https://linkedin.com/in/timo-krug" target="_blank" rel="noopener noreferrer">LinkedIn</Link>
         
         </div>
