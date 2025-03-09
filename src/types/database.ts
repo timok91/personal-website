@@ -48,8 +48,8 @@ export interface Test {
   }
   
   export interface UserSession {
-    id: string;
-    session_id: string;
+    id: string;  // UUID Primary Key
+    session_id: string; // UNIQUE Text field
     language: 'en' | 'de';
     age_group?: string;
     gender?: string;
@@ -61,7 +61,7 @@ export interface Test {
   
   export interface Response {
     id: string;
-    session_id: string;
+    session_id: string; // UUID referencing user_sessions.id
     test_id: string;
     question_id: string;
     response_value: number;
@@ -70,11 +70,11 @@ export interface Test {
   
   export interface Result {
     id: string;
-    session_id: string;
+    session_id: string; // UUID referencing user_sessions.id
     test_id: string;
     domain_id: string;
     facet_id?: string;
-    score: number;
+    score: number; // DECIMAL(5,2)
     created_at: string;
   }
   

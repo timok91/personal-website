@@ -8,7 +8,7 @@ import QuestionPage from './QuestionPage';
 import ResultsPage from './ResultsPage';
 import TestSelector from './TestSelector';
 import { Test, CompleteTestResult, UserSession } from '@/types/database';
-import * as api from '@/utils/api';
+import * as api from '@/utils/api-client'; // Changed from @/utils/api to @/utils/api-client
 
 // Define the available languages
 export type Language = 'en' | 'de';

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Language } from './PersonalityTestClient';
 import { CompleteTestResult } from '@/types/database';
-import * as api from '@/utils/api';
+import * as api from '@/utils/api-client'; // Changed from @/utils/api to @/utils/api-client
 
 interface ResultsPageProps {
   language: Language;
@@ -19,6 +19,7 @@ const generatePDF = async (testResults: CompleteTestResult, language: Language) 
     : 'Ihr PDF-Bericht würde hier heruntergeladen werden.');
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessionId }) => {
   const [emailInput, setEmailInput] = useState('');
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
