@@ -1,9 +1,13 @@
+// src/components/personality-test/ResultsPage.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Language } from './PersonalityTestClient';
 import { CompleteTestResult } from '@/types/database';
-import * as api from '@/utils/api-client'; // Changed from @/utils/api to @/utils/api-client
+import * as api from '@/utils/api-client';
+
+// Dynamically import the PDF generator to reduce initial bundle size
+const PDFDownloadButton = lazy(() => import('./PDFGenerator'));
 
 interface ResultsPageProps {
   language: Language;
@@ -11,20 +15,14 @@ interface ResultsPageProps {
   sessionId: string;
 }
 
-// Generate a PDF report
-const generatePDF = async (testResults: CompleteTestResult, language: Language) => {
-  // TODO: Implement PDF generation with react-pdf
-  alert(language === 'en' 
-    ? 'Your PDF report would be downloaded here.'
-    : 'Ihr PDF-Bericht würde hier heruntergeladen werden.');
-};
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessionId }) => {
   const [emailInput, setEmailInput] = useState('');
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isPdfComponentLoaded, setIsPdfComponentLoaded] = useState(false);
+  const [isPdfLoading, setIsPdfLoading] = useState(false);
   
   // Content for both languages
   const content = {
@@ -32,6 +30,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
       title: 'Your Personality Test Results',
       summary: 'Below are your scores across different personality domains. These scores reflect your responses to the assessment questions.',
       downloadPDF: 'Download PDF Report',
+      preparingPDF: 'Preparing PDF...',
+      loadingPDF: 'Loading PDF Generator...',
       returnToStart: 'Take Another Test',
       newsletterTitle: 'Stay Updated',
       newsletterDescription: 'Subscribe to our newsletter to learn more about personality psychology and receive updates on new research.',
@@ -49,6 +49,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
       title: 'Ihre Persönlichkeitstest-Ergebnisse',
       summary: 'Unten finden Sie Ihre Punktzahlen in verschiedenen Persönlichkeitsbereichen. Diese Werte spiegeln Ihre Antworten auf die Beurteilungsfragen wider.',
       downloadPDF: 'PDF-Bericht herunterladen',
+      preparingPDF: 'PDF wird vorbereitet...',
+      loadingPDF: 'PDF-Generator wird geladen...',
       returnToStart: 'Einen weiteren Test machen',
       newsletterTitle: 'Bleiben Sie auf dem Laufenden',
       newsletterDescription: 'Abonnieren Sie unseren Newsletter, um mehr über Persönlichkeitspsychologie zu erfahren und Updates zu neuen Forschungsergebnissen zu erhalten.',
@@ -65,6 +67,27 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
   };
 
   const t = content[language];
+  
+  // Preload the PDF component when the page is visible
+  useEffect(() => {
+    // Use a small delay to not block the initial render
+    const timer = setTimeout(() => {
+      setIsPdfLoading(true);
+      
+      // Create a dynamic import to load the component
+      import('./PDFGenerator')
+        .then(() => {
+          setIsPdfComponentLoaded(true);
+          setIsPdfLoading(false);
+        })
+        .catch(err => {
+          console.error('Failed to preload PDF component:', err);
+          setIsPdfLoading(false);
+        });
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
   
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,12 +163,37 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
       
       {/* Actions */}
       <div className="result-actions">
-        <button 
-          className="result-button"
-          onClick={() => generatePDF(testResults, language)}
-        >
-          {t.downloadPDF}
-        </button>
+        {isPdfLoading ? (
+          <button className="result-button" disabled>{t.loadingPDF}</button>
+        ) : isPdfComponentLoaded ? (
+          <Suspense fallback={<button className="result-button" disabled>{t.preparingPDF}</button>}>
+            <PDFDownloadButton 
+              testResults={testResults} 
+              language={language}
+              buttonText={t.downloadPDF}
+              fileName={`${testName.replace(/\s+/g, '-').toLowerCase()}-results.pdf`}
+            />
+          </Suspense>
+        ) : (
+          <button 
+            className="result-button"
+            onClick={() => {
+              setIsPdfLoading(true);
+              // Manually trigger the import
+              import('./PDFGenerator')
+                .then(() => {
+                  setIsPdfComponentLoaded(true);
+                  setIsPdfLoading(false);
+                })
+                .catch(err => {
+                  console.error('Failed to load PDF component:', err);
+                  setIsPdfLoading(false);
+                });
+            }}
+          >
+            {t.downloadPDF}
+          </button>
+        )}
         <a href="/personality-test" className="result-button">
           {t.returnToStart}
         </a>
