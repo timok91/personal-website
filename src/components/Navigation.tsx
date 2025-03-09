@@ -15,6 +15,7 @@ export default function Navigation() {
         <Link href="/blog">Blog</Link>
         <Link href="/resume">Resume</Link>
         <Link href="/projects">Projects</Link>
+        <Link href="/personality-test">Personality Test</Link>
       </div>
     </nav>
   );
