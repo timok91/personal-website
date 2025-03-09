@@ -45,7 +45,7 @@
     padding: 1.5rem;
     border-radius: 8px;
     margin: 2rem 0;
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--accent-color);
   }
   
   .consent-checkbox {
@@ -54,9 +54,17 @@
     gap: 0.75rem;
     margin: 1.5rem 0;
   }
+
+  .consent-checkbox input[type="checkbox"] {
+    width: 1.25rem; /* Larger checkbox */
+    height: 1.25rem;
+    accent-color: var(--primary-color); /* Optional: custom checkbox color */
+    margin-top: 0; /* Remove any top margin */
+  }
   
-  .consent-checkbox input {
-    margin-top: 0.25rem;
+  .consent-checkbox label {
+    line-height: 1.5; /* Improve text readability */
+    cursor: pointer; /* Show pointer on label to indicate clickability */
   }
   
   .demographics-form {
@@ -64,7 +72,7 @@
   }
   
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
   }
   
   .form-group label {
@@ -75,10 +83,10 @@
   
   .form-group select,
   .form-group input {
-    width: 100%;
+    width: 80%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
     font-size: 1rem;
     font-family: inherit;
   }
@@ -118,18 +126,19 @@
   
   .question-list {
     list-style: none;
-    padding: 0;
+    padding: 2rem;
   }
   
   .question-item {
     margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--light-gray);
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--accent-color);
   }
   
   .question-text {
-    margin-bottom: 1rem;
-    font-weight: 500;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 1.2rem;
   }
   
   .likert-scale {
@@ -137,6 +146,7 @@
     grid-template-columns: repeat(8, 1fr);
     gap: 0.5rem;
     margin-top: 0.75rem;
+    
   }
   
   @media (max-width: 768px) {
@@ -151,10 +161,14 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    
   }
   
   .scale-option input {
+    width: 1.2rem; /* Increase input size */
+    height: 1.2rem;
     margin-bottom: 0.5rem;
+    accent-color: var(--primary-color); /* Optional: custom color */    
   }
   
   .scale-label {
@@ -210,14 +224,15 @@
   }
   
   .domain-result {
-    margin-bottom: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 4rem;
   }
   
   .domain-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
   }
   
   .domain-score {
@@ -239,7 +254,7 @@
   }
   
   .domain-description {
-    margin-top: 0.75rem;
+    margin-top: 1rem;
     font-size: 0.95rem;
     line-height: 1.6;
   }
@@ -253,7 +268,7 @@
   .result-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 2rem;
     margin-top: 2rem;
     justify-content: center;
   }
@@ -299,7 +314,7 @@
   
   .newsletter-form button {
     padding: 0.75rem 1.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     border-radius: 0 4px 4px 0;

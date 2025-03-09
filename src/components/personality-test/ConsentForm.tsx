@@ -20,7 +20,7 @@ const ConsentForm: React.FC<ConsentFormProps> = ({ language, onSubmit }) => {
         <p><strong>Data Usage:</strong> Your responses will be stored anonymously and used for research purposes. No personally identifiable information will be collected.</p>
         <p><strong>Data Retention:</strong> Anonymized data will be retained for 10 years for research purposes.</p>
         <p><strong>Demographics:</strong> We collect basic demographic information (age, gender, optional salary information, and leadership status) solely for research analysis.</p>
-        <p><strong>Privacy Protection:</strong> We do not store personal identifiers (IP addresses, names, or emails) that could link your responses to you.</p>
+        <p><strong>Privacy Protection:</strong> We do not store personal identifiers (IP addresses or names) that could link your responses to you. An E-Mail address is only stored if you explicitly sign up for our newsletter.</p>
       `,
       consentCheckbox: 'I have read and agree to the terms of data usage described above.',
       continueButton: 'Continue',
@@ -34,7 +34,7 @@ const ConsentForm: React.FC<ConsentFormProps> = ({ language, onSubmit }) => {
         <p><strong>Datennutzung:</strong> Ihre Antworten werden anonym gespeichert und für Forschungszwecke verwendet. Es werden keine personenidentifizierenden Informationen erfasst.</p>
         <p><strong>Datenspeicherung:</strong> Anonymisierte Daten werden für 10 Jahre zu Forschungszwecken aufbewahrt.</p>
         <p><strong>Demografische Daten:</strong> Wir erheben grundlegende demografische Informationen (Alter, Geschlecht, optionale Gehaltsinformationen und Führungsposition) ausschließlich für Forschungsanalysen.</p>
-        <p><strong>Datenschutz:</strong> Wir speichern keine persönlichen Identifikatoren (IP-Adressen, Namen oder E-Mails), die Ihre Antworten mit Ihnen in Verbindung bringen könnten.</p>
+        <p><strong>Datenschutz:</strong> Wir speichern keine persönlichen Identifikatoren (IP-Adressen oder Namen), die Ihre Antworten mit Ihnen in Verbindung bringen könnten. Eine E-Mail Adresse wird nur gespeichert, wenn Sie sich explizit zu unserem Newsletter anmelden.</p>
       `,
       consentCheckbox: 'Ich habe die oben beschriebenen Bedingungen zur Datennutzung gelesen und stimme ihnen zu.',
       continueButton: 'Fortfahren',

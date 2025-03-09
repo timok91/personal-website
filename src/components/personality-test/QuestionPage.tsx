@@ -59,7 +59,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({
       pageLabel: 'Page',
       of: 'of',
       instructionsTitle: 'Instructions',
-      instructions: 'Please rate your agreement with each statement using the scale below.',
+      instructions: 'Please rate your agreement with each statement using the scale below. Think about how you typically behave and answer spontaneously. There are no "right" or "wrong" answers. Your results will be consistent and coherently interpretable only if you answer honestly.',
       scaleLabels: [
         'Strongly Disagree',
         'Disagree',
@@ -78,17 +78,17 @@ const QuestionPage: React.FC<QuestionPageProps> = ({
       allQuestionsNote: 'Please answer all questions to continue'
     },
     de: {
-      title: 'Persönlichkeitsbeurteilung',
+      title: 'Persönlichkeitsfragebogen',
       pageLabel: 'Seite',
       of: 'von',
-      instructionsTitle: 'Anweisungen',
-      instructions: 'Bitte bewerten Sie Ihre Zustimmung zu jeder Aussage anhand der folgenden Skala.',
+      instructionsTitle: 'Anleitung',
+      instructions: 'Bitte bewerten Sie Ihre Zustimmung zu jeder Aussage anhand der folgenden Skala. Denken Sie daran, wie Sie sich typischerweise verhalten und antworten Sie spontan. Es gibt keine "richtigen" oder "falschen" Antworten. Nur wenn Sie ehrlich antworten, sind Ihre Ergebnisse konsistent und schlüssig interpretierbar.',
       scaleLabels: [
         'Stimme überhaupt nicht zu',
         'Stimme nicht zu',
         'Stimme eher nicht zu',
-        'Stimme wenig zu',
-        'Stimme etwas zu',
+        'Stimme leicht nicht zu',
+        'Stimme leicht zu',
         'Stimme eher zu',
         'Stimme zu',
         'Stimme voll zu'
@@ -151,24 +151,31 @@ const QuestionPage: React.FC<QuestionPageProps> = ({
               </p>
               
               <div className="likert-scale">
-                {Array.from({ length: 8 }, (_, i) => i + 1).map((value) => (
-                  <div key={value} className="scale-option">
-                    <input
-                      type="radio"
-                      id={`${question.id}-${value}`}
-                      name={question.id}
-                      value={value}
-                      checked={responses[question.id] === value}
-                      onChange={() => onResponseChange(question.id, value)}
-                    />
-                    <label htmlFor={`${question.id}-${value}`}>{value}</label>
-                    {value === 1 || value === 8 ? (
-                      <span className="scale-label">
-                        {value === 1 ? t.scaleLabels[0] : t.scaleLabels[7]}
-                      </span>
-                    ) : null}
-                  </div>
-                ))}
+              {Array.from({ length: 8 }, (_, i) => i + 1).map((value) => (
+                <div key={value} className="scale-option">
+                  <input
+                    type="radio"
+                    id={`${question.id}-${value}`}
+                    name={question.id}
+                    value={value}
+                    checked={responses[question.id] === value}
+                    onChange={() => onResponseChange(question.id, value)}
+                  />
+                  <label htmlFor={`${question.id}-${value}`}>{value}</label>
+                  {[1, 4, 5, 8].includes(value) ? (
+                    <span className="scale-label">
+                      {value === 1 
+                        ? t.scaleLabels[0] 
+                        : value === 4 
+                        ? t.scaleLabels[3] 
+                        : value === 5 
+                        ? t.scaleLabels[4] 
+                        : t.scaleLabels[7]
+                      }
+                    </span>
+                  ) : null}
+                </div>
+              ))}
               </div>
             </li>
           ))}
