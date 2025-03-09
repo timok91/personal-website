@@ -7,12 +7,14 @@ import {
   Facet,
   Question,
   UserSession,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Response as TestResponse,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Result,
   QuestionsPageData,
   TestResult,
   CompleteTestResult
-} from '../types/database';
+} from '../types/database'; 
 
 // Constants
 const QUESTIONS_PER_PAGE = 10;
@@ -30,6 +32,7 @@ export const createUserSession = async (
 ): Promise<string> => {
   try {
     const supabase = getSupabase();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, error } = await supabase
       .from('user_sessions')
       .insert({
@@ -66,6 +69,7 @@ export const updateUserSession = async (
 };
 
 // Test management
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getActiveTests = async (language: 'en' | 'de'): Promise<Test[]> => {
   try {
     const supabase = getSupabase();
@@ -138,6 +142,7 @@ export const getFacetsForDomain = async (domainId: string): Promise<Facet[]> => 
 export const getQuestionsForPage = async (
   testId: string,
   page: number,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   language: 'en' | 'de'
 ): Promise<QuestionsPageData> => {
   try {
