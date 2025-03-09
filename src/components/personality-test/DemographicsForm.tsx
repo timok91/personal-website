@@ -116,12 +116,14 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
   const t = content[language];
   
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+    const target = e.target as HTMLInputElement; // Type assertion
+    const { name, value, type, checked } = target;
+    
     setDemographics(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    
+   
     // Clear error for this field if it exists
     if (errors[name]) {
       setErrors(prev => {
