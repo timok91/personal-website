@@ -157,7 +157,13 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
     e.preventDefault();
     
     if (validateForm()) {
-      onSubmit(demographics);
+      // Make a copy to ensure we're passing a clean object
+      const dataToSubmit = {
+        ...demographics,
+        previouslyTaken: Boolean(demographics.previouslyTaken) // Ensure it's a boolean
+      };
+      
+      onSubmit(dataToSubmit);
     }
   };
   

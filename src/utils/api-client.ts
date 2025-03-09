@@ -146,35 +146,6 @@ export const createUserSession = async (
   }
 };
 
-export const updateUserSession = async (
-  sessionId: string,
-  data: Partial<UserSession>
-): Promise<void> => {
-  try {
-    const supabase = createClient();
-    
-    // For our API, we identify sessions by the session_id field
-    const { error } = await supabase
-      .from('user_sessions')
-      .update(data)
-      .eq('session_id', sessionId);
-
-    if (error) {
-      console.error('Error updating user session:', error);
-      // Fallback to localStorage
-      if (isBrowser) {
-        localStorage.setItem(`personality_test_${sessionId}_data`, JSON.stringify(data));
-      }
-    }
-  } catch (error) {
-    console.error('Error updating user session:', error);
-    // Fallback to localStorage
-    if (isBrowser) {
-      localStorage.setItem(`personality_test_${sessionId}_data`, JSON.stringify(data));
-    }
-  }
-};
-
 // Helper function to get user session ID
 const getUserSessionId = async (sessionId: string): Promise<string> => {
   // First try to get from localStorage for performance
@@ -194,11 +165,13 @@ const getUserSessionId = async (sessionId: string): Promise<string> => {
       .limit(1);
     
     if (error) {
+      console.error('Error fetching session by session_id:', error);
       throw new Error(`Error fetching session: ${error.message}`);
     }
     
     // If no session found, create one
     if (!data || data.length === 0) {
+      console.log('No session found, creating a new one for session_id:', sessionId);
       // Create a new session
       const language = isBrowser ? localStorage.getItem('personality_test_language') || 'en' : 'en';
       const { data: newData, error: insertError } = await supabase
@@ -207,6 +180,7 @@ const getUserSessionId = async (sessionId: string): Promise<string> => {
         .select('id');
       
       if (insertError || !newData || newData.length === 0) {
+        console.error('Could not create session:', insertError);
         throw new Error(`Could not create session: ${insertError?.message || 'Unknown error'}`);
       }
       
@@ -235,6 +209,59 @@ const getUserSessionId = async (sessionId: string): Promise<string> => {
       localStorage.setItem('personality_test_session_id', fallbackId);
     }
     return fallbackId;
+  }
+};
+
+export const updateUserSession = async (
+  sessionId: string,
+  data: Partial<UserSession>
+): Promise<void> => {
+  try {
+    // First, get the actual database ID using the helper function
+    const userSessionId = await getUserSessionId(sessionId);
+    
+    // Map the data properties correctly for the database
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const formattedData: Record<string, any> = {};
+    
+    // Handle each field specifically to ensure proper naming and types
+    if (data.age_group !== undefined) formattedData.age_group = data.age_group;
+    if (data.gender !== undefined) formattedData.gender = data.gender;
+    if (data.salary !== undefined) formattedData.salary = data.salary;
+    if (data.leadership !== undefined) formattedData.leadership = data.leadership;
+    
+    // Handle previously_taken specifically to ensure the name and type are correct
+    if ('previously_taken' in data) {
+      formattedData.previously_taken = Boolean(data.previously_taken);
+    } else if ('previouslyTaken' in data) {
+      // In case the property is in camelCase rather than snake_case
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      formattedData.previously_taken = Boolean((data as any).previouslyTaken);
+    }
+    
+    const supabase = createClient();
+    
+    // Update using the database ID, not the session_id
+    const { error } = await supabase
+      .from('user_sessions')
+      .update(formattedData)
+      .eq('id', userSessionId);
+
+    if (error) {
+      console.error('Error updating user session:', error);
+      
+      // Fallback to localStorage
+      if (isBrowser) {
+        localStorage.setItem(`personality_test_${sessionId}_data`, JSON.stringify(data));
+      }
+    }
+  } catch (error) {
+    console.error('Error in updateUserSession:', error);
+    
+    // Fallback to localStorage
+    if (isBrowser) {
+      localStorage.setItem(`personality_test_${sessionId}_data`, JSON.stringify(data));
+    }
   }
 };
 
@@ -455,7 +482,6 @@ export const calculateAndSaveResults = async (
     if (responseError) throw responseError;
     
     const responses = responseData || [];
-    console.log(`Found ${responses.length} responses for session ${userSessionId}`);
     
     // Initialize results
     const domainResults: TestResult[] = [];
@@ -468,7 +494,6 @@ export const calculateAndSaveResults = async (
       );
       
       if (!domainResponses || domainResponses.length === 0) {
-        console.log(`No responses for domain ${domain.id} (${domain.name_en})`);
         // Add a default score for domains without responses
         domainResults.push({
           domain,
@@ -495,8 +520,6 @@ export const calculateAndSaveResults = async (
       // Calculate percentage score (0-100)
       const maxPossibleScore = domainResponses.length * 8; // 8 is the max value on our scale
       const percentageScore = (totalScore / maxPossibleScore) * 100;
-      
-      console.log(`Domain ${domain.name_en}: Score ${percentageScore.toFixed(2)}%`);
       
       // Save to database
       const { error: insertError } = await supabase

@@ -114,14 +114,17 @@ export const PersonalityTestClient: React.FC = () => {
     try {
       setIsLoading(true);
       
-      // Update the session with demographic data
-      await api.updateUserSession(sessionId, {
+      // Create an object with property names exactly matching the UserSession interface
+      const sessionData = {
         age_group: data.age,
         gender: data.gender,
-        salary: data.salary,
+        salary: data.salary || '',
         leadership: data.leadership,
-        previously_taken: data.previouslyTaken,
-      } as Partial<UserSession>);
+        previously_taken: Boolean(data.previouslyTaken), // Ensure boolean type and correct property name
+      };
+      
+      // Update the session with demographic data
+      await api.updateUserSession(sessionId, sessionData as Partial<UserSession>);
       
       // Reset responses when starting a new test
       setResponses({});
