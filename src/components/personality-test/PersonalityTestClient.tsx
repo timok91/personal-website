@@ -8,7 +8,7 @@ import QuestionPage from './QuestionPage';
 import ResultsPage from './ResultsPage';
 import TestSelector from './TestSelector';
 import { Test, CompleteTestResult, UserSession } from '@/types/database';
-import * as api from '@/utils/api-client'; // Changed from @/utils/api to @/utils/api-client
+import * as api from '@/utils/api-client';
 
 // Define the available languages
 export type Language = 'en' | 'de';
@@ -69,6 +69,8 @@ export const PersonalityTestClient: React.FC = () => {
       const newSessionId = await api.createUserSession(selectedLanguage);
       setSessionId(newSessionId);
       
+      console.log('Created new session with ID:', newSessionId);
+      
       // Fetch available tests
       const tests = await api.getActiveTests(selectedLanguage);
       setAvailableTests(tests);
@@ -113,15 +115,20 @@ export const PersonalityTestClient: React.FC = () => {
   const handleDemographicsSubmit = async (data: DemographicData) => {
     try {
       setIsLoading(true);
+      console.log('Demographic form submitted with data:', data);
       
       // Create an object with property names exactly matching the UserSession interface
+      // Use snake_case for database consistency
       const sessionData = {
         age_group: data.age,
         gender: data.gender,
         salary: data.salary || '',
         leadership: data.leadership,
-        previously_taken: Boolean(data.previouslyTaken), // Ensure boolean type and correct property name
+        // Special handling for boolean conversion
+        previously_taken: data.previouslyTaken === true
       };
+      
+      console.log('Formatted session data for API:', sessionData);
       
       // Update the session with demographic data
       await api.updateUserSession(sessionId, sessionData as Partial<UserSession>);

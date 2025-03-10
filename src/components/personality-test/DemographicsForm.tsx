@@ -119,10 +119,18 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
     const target = e.target as HTMLInputElement; // Type assertion
     const { name, value, type, checked } = target;
     
-    setDemographics(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    if (type === 'checkbox') {
+      console.log(`Checkbox ${name} changed to: ${checked}`);
+      setDemographics(prev => ({
+        ...prev,
+        [name]: checked
+      }));
+    } else {
+      setDemographics(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
    
     // Clear error for this field if it exists
     if (errors[name]) {
@@ -157,10 +165,14 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
     e.preventDefault();
     
     if (validateForm()) {
+      // Log the data being submitted
+      console.log('Submitting demographic data:', demographics);
+      console.log('Previously taken value:', demographics.previouslyTaken);
+      
       // Make a copy to ensure we're passing a clean object
       const dataToSubmit = {
         ...demographics,
-        previouslyTaken: Boolean(demographics.previouslyTaken) // Ensure it's a boolean
+        previouslyTaken: demographics.previouslyTaken === true // Explicit boolean conversion
       };
       
       onSubmit(dataToSubmit);
@@ -249,7 +261,15 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
             id="previouslyTaken"
             name="previouslyTaken"
             checked={demographics.previouslyTaken}
-            onChange={handleChange}
+            onChange={(e) => {
+              // Special handling for checkbox with console logging for debugging
+              const isChecked = e.target.checked;
+              console.log('Previously taken checkbox changed:', isChecked);
+              setDemographics(prev => ({
+                ...prev,
+                previouslyTaken: isChecked
+              }));
+            }}
           />
           <label htmlFor="previouslyTaken">{t.previousLabel}</label>
         </div>

@@ -90,13 +90,15 @@ export const createUserSession = async (
     const supabase = createClient();
     
     // Create the session
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     const { data, error } = await supabase
       .from('user_sessions')
       .insert({
         session_id: sessionId,
-        language
-      });
+        language,
+        previously_taken: false // Explicitly initialize as false
+      })
+      .select('id');
     
     if (error) {
       // Handle potential unique constraint violation
@@ -105,6 +107,16 @@ export const createUserSession = async (
       } else {
         console.error('Error creating user session:', error);
       }
+    }
+    
+    // Store session data if creation was successful
+    if (data && data.length > 0) {
+      if (isBrowser) {
+        localStorage.setItem('personality_test_session', sessionId);
+        localStorage.setItem('personality_test_language', language);
+        localStorage.setItem('personality_test_session_id', data[0].id);
+      }
+      return sessionId;
     }
     
     // Try to get the session ID from the database
@@ -152,12 +164,16 @@ const getUserSessionId = async (sessionId: string): Promise<string> => {
   if (isBrowser) {
     const storedId = localStorage.getItem('personality_test_session_id');
     if (storedId) {
+      console.log('Using session ID from localStorage:', storedId);
       return storedId;
     }
   }
   
   try {
+    console.log('Fetching session ID from Supabase for session_id:', sessionId);
     const supabase = createClient();
+    
+    // First, try to get the session by session_id
     const { data, error } = await supabase
       .from('user_sessions')
       .select('id')
@@ -172,11 +188,19 @@ const getUserSessionId = async (sessionId: string): Promise<string> => {
     // If no session found, create one
     if (!data || data.length === 0) {
       console.log('No session found, creating a new one for session_id:', sessionId);
-      // Create a new session
+      // Create a new session with minimal data
       const language = isBrowser ? localStorage.getItem('personality_test_language') || 'en' : 'en';
+      
+      // Set the seed values for a new session
+      const sessionData = {
+        session_id: sessionId,
+        language,
+        previously_taken: false // Default to false for new sessions
+      };
+      
       const { data: newData, error: insertError } = await supabase
         .from('user_sessions')
-        .insert({ session_id: sessionId, language })
+        .insert(sessionData)
         .select('id');
       
       if (insertError || !newData || newData.length === 0) {
@@ -185,6 +209,8 @@ const getUserSessionId = async (sessionId: string): Promise<string> => {
       }
       
       const newSessionId = newData[0].id;
+      console.log('Created new session with ID:', newSessionId);
+      
       if (isBrowser) {
         localStorage.setItem('personality_test_session_id', newSessionId);
       }
@@ -192,8 +218,10 @@ const getUserSessionId = async (sessionId: string): Promise<string> => {
       return newSessionId;
     }
     
-    // Store for future use
+    // Session found - store for future use
     const dbSessionId = data[0].id;
+    console.log('Found existing session with ID:', dbSessionId);
+    
     if (isBrowser) {
       localStorage.setItem('personality_test_session_id', dbSessionId);
     }
@@ -202,13 +230,47 @@ const getUserSessionId = async (sessionId: string): Promise<string> => {
   } catch (error) {
     console.error('Failed to get user session ID:', error);
     
-    // Use a fallback for testing
-    const fallbackId = uuidv4();
-    console.log('Using fallback session ID:', fallbackId);
-    if (isBrowser) {
-      localStorage.setItem('personality_test_session_id', fallbackId);
+    // The fallback approach is problematic because it creates a non-existent ID
+    // Instead, create a real session in the database as a fallback
+    try {
+      console.log('Attempting to create fallback session for:', sessionId);
+      const supabase = createClient();
+      const language = isBrowser ? localStorage.getItem('personality_test_language') || 'en' : 'en';
+      
+      const { data, error } = await supabase
+        .from('user_sessions')
+        .insert({
+          session_id: sessionId,
+          language,
+          previously_taken: false
+        })
+        .select('id');
+      
+      if (error || !data || data.length === 0) {
+        console.error('Failed to create fallback session:', error);
+        // Only as a last resort, use a local UUID
+        const fallbackId = uuidv4();
+        console.log('Using local fallback UUID as last resort:', fallbackId);
+        if (isBrowser) {
+          localStorage.setItem('personality_test_session_id', fallbackId);
+        }
+        return fallbackId;
+      }
+      
+      const newId = data[0].id;
+      console.log('Created fallback session with ID:', newId);
+      if (isBrowser) {
+        localStorage.setItem('personality_test_session_id', newId);
+      }
+      return newId;
+    } catch (fallbackError) {
+      console.error('Complete failure in session management:', fallbackError);
+      const emergencyId = uuidv4();
+      if (isBrowser) {
+        localStorage.setItem('personality_test_session_id', emergencyId);
+      }
+      return emergencyId;
     }
-    return fallbackId;
   }
 };
 
@@ -220,40 +282,59 @@ export const updateUserSession = async (
     // First, get the actual database ID using the helper function
     const userSessionId = await getUserSessionId(sessionId);
     
-    // Map the data properties correctly for the database
+    // Clean up object for database update
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const formattedData: Record<string, any> = {};
     
-    // Handle each field specifically to ensure proper naming and types
+    // Handle each field explicitly to ensure proper naming and types
     if (data.age_group !== undefined) formattedData.age_group = data.age_group;
     if (data.gender !== undefined) formattedData.gender = data.gender;
     if (data.salary !== undefined) formattedData.salary = data.salary;
     if (data.leadership !== undefined) formattedData.leadership = data.leadership;
     
-    // Handle previously_taken specifically to ensure the name and type are correct
+    // Handle previously_taken explicitly - ensure it's a proper boolean value
     if ('previously_taken' in data) {
-      formattedData.previously_taken = Boolean(data.previously_taken);
+      // Direct property name (snake_case)
+      formattedData.previously_taken = data.previously_taken === true;
     } else if ('previouslyTaken' in data) {
-      // In case the property is in camelCase rather than snake_case
+      // Camel case property name - handle type conversion safely
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      formattedData.previously_taken = Boolean((data as any).previouslyTaken);
+      const value = (data as any).previouslyTaken;
+      formattedData.previously_taken = value === true;
     }
+    
+    console.log('Updating session with formatted data:', formattedData);
+    console.log('Using session ID:', userSessionId);
     
     const supabase = createClient();
     
-    // Update using the database ID, not the session_id
-    const { error } = await supabase
+    // Update using the database ID, not the session_id string
+    const { data: updatedData, error } = await supabase
       .from('user_sessions')
       .update(formattedData)
-      .eq('id', userSessionId);
-
+      .eq('id', userSessionId)
+      .select(); // Add select to get the updated data for verification
+    
     if (error) {
       console.error('Error updating user session:', error);
+      // Try alternative approach - update by session_id instead of id
+      const { error: altError } = await supabase
+        .from('user_sessions')
+        .update(formattedData)
+        .eq('session_id', sessionId);
       
-      // Fallback to localStorage
-      if (isBrowser) {
-        localStorage.setItem(`personality_test_${sessionId}_data`, JSON.stringify(data));
+      if (altError) {
+        console.error('Alternative update also failed:', altError);
+        
+        // Fallback to localStorage
+        if (isBrowser) {
+          localStorage.setItem(`personality_test_${sessionId}_data`, JSON.stringify(formattedData));
+        }
+      } else {
+        console.log('Update succeeded using session_id instead of id');
       }
+    } else {
+      console.log('Successfully updated user session:', updatedData);
     }
   } catch (error) {
     console.error('Error in updateUserSession:', error);
