@@ -8,14 +8,22 @@ export async function middleware(request: NextRequest) {
   // Refresh session if expired
   await supabase.auth.getUser();
   
-  // Optional: Check for admin routes
+  // Check for admin routes
   if (request.nextUrl.pathname.startsWith('/admin')) {
+    // Skip auth check for the login page itself
+    if (request.nextUrl.pathname === '/admin/login') {
+      return response;
+    }
+    
     // Check for the admin-auth cookie
     const authCookie = request.cookies.get('admin-auth');
     
     // If no auth cookie exists or it's invalid, redirect to login
     if (!authCookie || authCookie.value !== process.env.ADMIN_PASSWORD) {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
+      // Store the original URL to redirect back after login
+      const url = new URL('/admin/login', request.url);
+      url.searchParams.set('from', request.nextUrl.pathname);
+      return NextResponse.redirect(url);
     }
   }
   
