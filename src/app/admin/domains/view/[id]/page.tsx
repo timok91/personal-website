@@ -2,12 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { Domain, Test, Question, Facet } from '@/types/database';
 import Breadcrumb from '@/components/admin/Breadcrumb';
 
-export default function ViewDomainPage({ params }: { params: { id: string } }) {
-  const domainId = params.id;
+export default function ViewDomainPage() {
+  // Use Next.js hooks to access params
+  const params = useParams();
+  const domainId = typeof params.id === 'string' ? params.id : Array.isArray(params.id) ? params.id[0] : '';
   
   const [domain, setDomain] = useState<Domain | null>(null);
   const [test, setTest] = useState<Test | null>(null);
@@ -18,6 +21,7 @@ export default function ViewDomainPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     const fetchDomainData = async () => {
+      if (!domainId) return;
       try {
         setLoading(true);
         const supabase = createClient();

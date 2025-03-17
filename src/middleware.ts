@@ -14,6 +14,9 @@ export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname === '/admin/login') {
       return response;
     }
+
+    // Log the cookies for debugging
+    console.log("Cookies in middleware:", request.cookies.getAll());
     
     // Check for the admin-auth cookie
     const authCookie = request.cookies.get('admin-auth');
@@ -21,7 +24,7 @@ export async function middleware(request: NextRequest) {
     // If no auth cookie exists or it's invalid, redirect to login
     if (!authCookie || authCookie.value !== process.env.ADMIN_PASSWORD) {
       // Store the original URL to redirect back after login
-      const url = new URL('/admin/login', request.url);
+      const url = new URL('/admin/login', request.nextUrl.origin);
       url.searchParams.set('from', request.nextUrl.pathname);
       return NextResponse.redirect(url);
     }
@@ -32,9 +35,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Required for Supabase auth
-    '/((?!_next/static|_next/image|favicon.ico).*)',
-    // Admin paths
+    '/((?!_next/static|_next/image|favicon.ico|images|posters|papers).*)',
     '/admin/:path*'
   ],
 };
