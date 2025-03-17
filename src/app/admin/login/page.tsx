@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function AdminLogin() {
+// Inner component that uses useSearchParams
+function LoginContent() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -98,5 +99,14 @@ export default function AdminLogin() {
         <Link href="/">Back to Website</Link>
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function AdminLogin() {
+  return (
+    <Suspense fallback={<div className="loading-state">Preparing login form...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }

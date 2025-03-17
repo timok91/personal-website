@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
@@ -20,7 +20,8 @@ interface ResultData {
   domain_name?: string;
 }
 
-export default function ResultsPage() {
+// Inner component that uses search params
+function ResultsContent() {
   const searchParams = useSearchParams();
   const testIdFilter = searchParams.get('testId');
   
@@ -193,5 +194,14 @@ export default function ResultsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function ResultsPage() {
+  return (
+    <Suspense fallback={<div className="loading-state">Loading results...</div>}>
+      <ResultsContent />
+    </Suspense>
   );
 }

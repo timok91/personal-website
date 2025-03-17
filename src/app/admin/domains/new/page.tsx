@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';
 import { Test } from '@/types/database';
 import Breadcrumb from '@/components/admin/Breadcrumb';
 
-export default function NewDomainPage() {
+// Wrapper component to use search params inside Suspense
+function NewDomainContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const preSelectedTestId = searchParams.get('testId');
@@ -223,5 +224,14 @@ export default function NewDomainPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function NewDomainPage() {
+  return (
+    <Suspense fallback={<div className="loading-state">Loading...</div>}>
+      <NewDomainContent />
+    </Suspense>
   );
 }

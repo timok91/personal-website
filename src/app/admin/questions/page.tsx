@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { Question, Test, Domain, Facet } from '@/types/database';
 import Breadcrumb from '@/components/admin/Breadcrumb';
 
-export default function QuestionsPage() {
+// Wrapper component that uses the search params
+function QuestionsContent() {
   const searchParams = useSearchParams();
   const testIdFilter = searchParams.get('testId');
   const domainIdFilter = searchParams.get('domainId');
@@ -288,5 +289,14 @@ export default function QuestionsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function QuestionsPage() {
+  return (
+    <Suspense fallback={<div className="loading-state">Loading questions...</div>}>
+      <QuestionsContent />
+    </Suspense>
   );
 }

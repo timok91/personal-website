@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { Domain, Test } from '@/types/database';
 import Breadcrumb from '@/components/admin/Breadcrumb';
 
-export default function DomainsPage() {
+// Inner component that uses search params
+function DomainsContent() {
   const searchParams = useSearchParams();
   const testIdFilter = searchParams.get('testId');
   
@@ -199,5 +200,14 @@ export default function DomainsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function DomainsPage() {
+  return (
+    <Suspense fallback={<div className="loading-state">Loading domains...</div>}>
+      <DomainsContent />
+    </Suspense>
   );
 }
