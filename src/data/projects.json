@@ -4,16 +4,13 @@
     "description": "I created a web application for automatically generating psychometric items via LLM. Embedding of the generated items are then created with sBERT. Afterwards, cosine similarity between items can be calculated and visualized and pseudo-factor analysis is employed to identify items that negatively affect factor structure.",
     "image": "ai-tool1.gif",
     "technologies": ["Python", "Streamlit", "sBERT", "Claude API"],
-    "demo": "https://demo-url.com",
     "blogSlug": "first-post"
   },
   {
-    "title": "Project Name 2",
-    "description": "Description of another project you've worked on.",
-    "image": "project2.jpg",
-    "technologies": ["Python", "TensorFlow", "Flask"],
-    "demo": "https://demo-url-2.com",
-    "code": "https://github.com/yourusername/project-repo-2",
+    "title": "Briefing Automation for Job Analysis",
+    "description": "I created a prototype for an app that automatically transcribes voice recordings of client briefings in the context of job analysis for specific job roles. The transcript is subsequently cleaned, summarized & structured by a LLM and can then be exported to Word.",
+    "image": "briefing_automation.gif",
+    "technologies": ["Python", "Streamlit", "OpenAI Whisper", "Groq API", "Mixtral AI", "CSS"],
     "blogSlug": "project-name-2"
   }
 ]
