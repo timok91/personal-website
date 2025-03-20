@@ -120,7 +120,7 @@ export const PersonalityTestClient: React.FC = () => {
       // Create an object with property names exactly matching the UserSession interface
       // Use snake_case for database consistency
       const sessionData = {
-        age_group: data.age,
+        age: Number(data.age),
         gender: data.gender,
         salary: data.salary || '',
         leadership: data.leadership,

@@ -287,7 +287,7 @@ export const updateUserSession = async (
     const formattedData: Record<string, any> = {};
     
     // Handle each field explicitly to ensure proper naming and types
-    if (data.age_group !== undefined) formattedData.age_group = data.age_group;
+    if (data.age !== undefined) formattedData.age = Number(data.age);
     if (data.gender !== undefined) formattedData.gender = data.gender;
     if (data.salary !== undefined) formattedData.salary = data.salary;
     if (data.leadership !== undefined) formattedData.leadership = data.leadership;

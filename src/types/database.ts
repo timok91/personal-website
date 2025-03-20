@@ -51,7 +51,7 @@ export interface Test {
     id: string;  // UUID Primary Key
     session_id: string; // UNIQUE Text field
     language: 'en' | 'de';
-    age_group?: string;
+    age?: number;
     gender?: string;
     salary?: string;
     leadership?: string;

@@ -26,17 +26,8 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
     en: {
       title: 'Demographic Information',
       description: 'Please provide the following demographic information for research purposes. This data helps us improve our test and understand different demographic patterns.',
-      ageLabel: 'Age Group',
-      ageOptions: [
-        { value: '', label: 'Select your age group' },
-        { value: 'under18', label: 'Under 18' },
-        { value: '18-24', label: '18-24' },
-        { value: '25-34', label: '25-34' },
-        { value: '35-44', label: '35-44' },
-        { value: '45-54', label: '45-54' },
-        { value: '55-64', label: '55-64' },
-        { value: '65plus', label: '65 and above' }
-      ],
+      ageLabel: 'Age',
+      agePlaceholder: 'Enter your age',
       genderLabel: 'Gender',
       genderOptions: [
         { value: '', label: 'Select your gender' },
@@ -63,24 +54,15 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
       ],
       previousLabel: 'Have you taken this test before?',
       continueButton: 'Continue to Test',
-      errorAge: 'Please select your age group',
+      errorAge: 'Please enter a valid age (14-99)',
       errorGender: 'Please select your gender',
       errorLeadership: 'Please indicate whether you hold a leadership position'
     },
     de: {
       title: 'Demografische Informationen',
       description: 'Bitte geben Sie die folgenden demografischen Informationen für Forschungszwecke an. Diese Daten helfen uns, unseren Test zu verbessern und verschiedene demografische Muster zu verstehen.',
-      ageLabel: 'Altersgruppe',
-      ageOptions: [
-        { value: '', label: 'Wählen Sie Ihre Altersgruppe' },
-        { value: 'under18', label: 'Unter 18' },
-        { value: '18-24', label: '18-24' },
-        { value: '25-34', label: '25-34' },
-        { value: '35-44', label: '35-44' },
-        { value: '45-54', label: '45-54' },
-        { value: '55-64', label: '55-64' },
-        { value: '65plus', label: '65 und älter' }
-      ],
+      ageLabel: 'Alter',
+      agePlaceholder: 'Geben Sie Ihr Alter ein',
       genderLabel: 'Geschlecht',
       genderOptions: [
         { value: '', label: 'Wählen Sie Ihr Geschlecht' },
@@ -145,8 +127,9 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
     
-    if (!demographics.age) {
-      newErrors.age = t.errorAge;
+    if (!demographics.age || isNaN(Number(demographics.age)) || 
+    Number(demographics.age) < 18 || Number(demographics.age) > 99) {
+    newErrors.age = t.errorAge;
     }
     
     if (!demographics.gender) {
@@ -187,19 +170,17 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
       <form onSubmit={handleSubmit} className="demographics-form">
         <div className="form-group">
           <label htmlFor="age">{t.ageLabel}</label>
-          <select 
+          <input
+            type="number"
             id="age"
             name="age"
+            min="14"
+            max="99"
             value={demographics.age}
             onChange={handleChange}
             className={errors.age ? 'error' : ''}
-          >
-            {t.ageOptions.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+            placeholder={t.agePlaceholder}
+          />
           {errors.age && <p className="error-message" style={{ color: 'red' }}>{errors.age}</p>}
         </div>
         
