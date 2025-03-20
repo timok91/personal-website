@@ -9,7 +9,7 @@ interface UserSession {
   id: string;
   session_id: string;
   language: 'en' | 'de';
-  age_group?: string;
+  age?: string;
   gender?: string;
   salary?: string;
   leadership?: string;
@@ -111,9 +111,9 @@ export default function UsersPage() {
                     <td>{user.session_id.substring(0, 8)}...</td>
                     <td>{user.language.toUpperCase()}</td>
                     <td>
-                      {user.age_group ? (
+                      {user.age ? (
                         <>
-                          {user.age_group} · {user.gender} · 
+                          {user.age} · {user.gender} · 
                           {user.leadership === 'yes' ? 'Leader' : 'Non-leader'}
                         </>
                       ) : (

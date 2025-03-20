@@ -11,7 +11,7 @@ interface UserSession {
   id: string;
   session_id: string;
   language: 'en' | 'de';
-  age_group?: string;
+  age?: string;
   gender?: string;
   salary?: string;
   leadership?: string;
@@ -170,7 +170,7 @@ export default function UserDetailPage() {
         <div className="details-grid">
           <div className="detail-item">
             <span className="detail-label">Age Group:</span>
-            <span className="detail-value">{user.age_group || 'Not provided'}</span>
+            <span className="detail-value">{user.age || 'Not provided'}</span>
           </div>
           <div className="detail-item">
             <span className="detail-label">Gender:</span>
