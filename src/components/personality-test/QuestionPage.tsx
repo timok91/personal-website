@@ -55,11 +55,12 @@ const QuestionPage: React.FC<QuestionPageProps> = ({
   // Content for both languages
   const content = {
     en: {
-      title: 'Personality Assessment',
+      title: 'The Big Five Inventory–2 Short Form (BFI-2-S)',
       pageLabel: 'Page',
       of: 'of',
       instructionsTitle: 'Instructions',
-      instructions: 'Please rate your agreement with each statement using the scale below. Think about how you typically behave and answer spontaneously. There are no "right" or "wrong" answers. Your results will be consistent and coherently interpretable only if you answer honestly.',
+      instructionsParagraph1: 'Please rate your agreement with each statement using the scale below. Think about how you typically behave and answer spontaneously. There are no "right" or "wrong" answers. Your results will be consistent and coherently interpretable only if you answer honestly.',
+      instructionsParagraph2: 'Source: Soto, C. J., & John, O. P. (2017). Short and extra-short forms of the Big Five Inventory–2: The BFI-2-S and BFI-2-XS. Journal of Research in Personality, 68, 69-81.',
       scaleLabels: [
         'Strongly Disagree',
         'Disagree',
@@ -78,11 +79,12 @@ const QuestionPage: React.FC<QuestionPageProps> = ({
       allQuestionsNote: 'Please answer all questions to continue'
     },
     de: {
-      title: 'Persönlichkeitsfragebogen',
+      title: 'The Big Five Inventory–2 Short Form (BFI-2-S) - Deutsche Version',
       pageLabel: 'Seite',
       of: 'von',
       instructionsTitle: 'Anleitung',
-      instructions: 'Bitte bewerten Sie Ihre Zustimmung zu jeder Aussage anhand der folgenden Skala. Denken Sie daran, wie Sie sich typischerweise verhalten und antworten Sie spontan. Es gibt keine "richtigen" oder "falschen" Antworten. Nur wenn Sie ehrlich antworten, sind Ihre Ergebnisse konsistent und schlüssig interpretierbar.',
+      instructionsParagraph1: 'Bitte bewerten Sie Ihre Zustimmung zu jeder Aussage anhand der folgenden Skala. Denken Sie daran, wie Sie sich typischerweise verhalten und antworten Sie spontan. Es gibt keine "richtigen" oder "falschen" Antworten. Nur wenn Sie ehrlich antworten, sind Ihre Ergebnisse konsistent und schlüssig interpretierbar.',
+      instructionsParagraph2: 'Quelle: Soto, C. J., & John, O. P. (2017). Short and extra-short forms of the Big Five Inventory–2: The BFI-2-S and BFI-2-XS. Journal of Research in Personality, 68, 69-81.',
       scaleLabels: [
         'Stimme überhaupt nicht zu',
         'Stimme nicht zu',
@@ -139,7 +141,9 @@ const QuestionPage: React.FC<QuestionPageProps> = ({
       
       <div className="instructions">
         <h3>{t.instructionsTitle}</h3>
-        <p>{t.instructions}</p>
+        <p>{t.instructionsParagraph1}</p>
+        <p>---</p>
+        <p>{t.instructionsParagraph2}</p>
       </div>
       
       <form>

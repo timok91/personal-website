@@ -75,12 +75,8 @@ export const PersonalityTestClient: React.FC = () => {
       const tests = await api.getActiveTests(selectedLanguage);
       setAvailableTests(tests);
       
-      // If there's only one test, auto-select it and go to consent
-      if (tests.length === 1) {
-        setSelectedTest(tests[0]);
-        setStage('consent');
-      } else if (tests.length > 1) {
-        // If there are multiple tests, go to test selection
+      // Always go to test selection if there's at least one test
+      if (tests.length >= 1) {
         setStage('test-selection');
       } else {
         // No tests available

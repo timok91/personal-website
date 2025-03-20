@@ -16,12 +16,14 @@ const TestSelector: React.FC<TestSelectorProps> = ({ language, tests, onSelect }
     en: {
       title: 'Choose a Personality Test',
       description: 'Please select one of the available personality tests:',
+      singleTestMessage: 'We currently only have 1 personality test available. Please select it to continue.',
       noTests: 'No tests are currently available. Please check back later.',
       selectButton: 'Select'
     },
     de: {
       title: 'Wählen Sie einen Persönlichkeitstest',
       description: 'Bitte wählen Sie einen der verfügbaren Persönlichkeitstests:',
+      singleTestMessage: 'Wir haben momentan nur 1 Persönlichkeitstest verfügbar. Bitte wählen Sie ihn aus, um fortzufahren.',
       noTests: 'Derzeit sind keine Tests verfügbar. Bitte schauen Sie später wieder vorbei.',
       selectButton: 'Auswählen'
     }
@@ -38,10 +40,22 @@ const TestSelector: React.FC<TestSelectorProps> = ({ language, tests, onSelect }
     );
   }
 
+  // Add a special message when there's only one test
+  const singleTestMessage = language === 'en' 
+    ? 'We currently only have 1 personality test available. Please select it to continue.'
+    : 'Wir haben momentan nur 1 Persönlichkeitstest verfügbar. Bitte wählen Sie ihn aus, um fortzufahren.';
+
+
   return (
     <div className="test-intro">
       <h2>{t.title}</h2>
-      <p>{t.description}</p>
+
+      {/* Show special message for single test */}
+      {tests.length === 1 ? (
+        <p>{singleTestMessage}</p>
+      ) : (
+        <p>{t.description}</p>
+      )}
       
       <div className="test-selection">
         {tests.map((test) => (
