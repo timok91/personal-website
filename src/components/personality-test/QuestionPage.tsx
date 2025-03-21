@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Language } from './PersonalityTestClient';
 import { Question } from '@/types/database';
-import * as api from '@/utils/api-client'; // Changed from @/utils/api to @/utils/api-client
+import * as api from '@/utils/api-client'; 
 
 interface QuestionPageProps {
   language: Language;

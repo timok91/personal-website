@@ -5,6 +5,7 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Language } from './PersonalityTestClient';
 import { CompleteTestResult } from '@/types/database';
 import * as api from '@/utils/api-client';
+import { formatWithLineBreaks } from '@/utils/text-formatting';
 
 // Dynamically import the PDF generator to reduce initial bundle size
 const PDFDownloadButton = lazy(() => import('./PDFGenerator'));
@@ -153,9 +154,9 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
                 <span style={{ float: 'right' }}>{t.high}</span>
               </div>
               
-              <p className="domain-description">
-                {domainDescription}
-              </p>
+              <div className="domain-description">
+                {formatWithLineBreaks(domainDescription)}
+              </div>
             </div>
           );
         })}

@@ -3,6 +3,7 @@
 import React from 'react';
 import { Language } from './PersonalityTestClient';
 import { Test } from '@/types/database';
+import { formatWithLineBreaks } from '@/utils/text-formatting';
 
 interface TestSelectorProps {
   language: Language;
@@ -61,7 +62,9 @@ const TestSelector: React.FC<TestSelectorProps> = ({ language, tests, onSelect }
         {tests.map((test) => (
           <div key={test.id} className="test-card" onClick={() => onSelect(test)}>
             <h3>{language === 'en' ? test.name_en : test.name_de}</h3>
-            <p>{language === 'en' ? test.description_en : test.description_de}</p>
+            <div className="test-description">
+              {formatWithLineBreaks(language === 'en' ? test.description_en : test.description_de)}
+            </div>            
             <button className="nav-button">{t.selectButton}</button>
           </div>
         ))}
