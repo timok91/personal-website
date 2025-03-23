@@ -257,6 +257,37 @@
     margin-bottom: 1.5rem;
     line-height: 1.6;
   }
+
+
+  .radar-chart-container {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .radar-chart-container h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+  }
+
+  .radar-chart {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .radar-chart svg {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  @media (max-width: 768px) {
+    .radar-chart svg {
+      max-height: 350px;
+    }
+  }
   
   .domain-result {
     margin-top: 2.5rem;

@@ -6,6 +6,7 @@ import { Language } from './PersonalityTestClient';
 import { CompleteTestResult } from '@/types/database';
 import * as api from '@/utils/api-client';
 import { formatWithLineBreaks } from '@/utils/text-formatting';
+import RadarChart from './RadarChart';
 
 // Dynamically import the PDF generator to reduce initial bundle size
 const PDFDownloadButton = lazy(() => import('./PDFGenerator'));
@@ -35,7 +36,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
       loadingPDF: 'Loading PDF Generator...',
       returnToStart: 'Take Another Test',
       newsletterTitle: 'Stay Updated',
-      newsletterDescription: 'Subscribe to our newsletter to learn more about personality psychology and receive updates on new research.',
+      newsletterDescription: 'Subscribe to my newsletter to learn more about personality psychology and receive updates on new research.',
       emailPlaceholder: 'Enter your email address',
       subscribeButton: 'Subscribe',
       submittingButton: 'Subscribing...',
@@ -54,7 +55,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
       loadingPDF: 'PDF-Generator wird geladen...',
       returnToStart: 'Einen weiteren Test machen',
       newsletterTitle: 'Bleiben Sie auf dem Laufenden',
-      newsletterDescription: 'Abonnieren Sie unseren Newsletter, um mehr über Persönlichkeitspsychologie zu erfahren und Updates zu neuen Forschungsergebnissen zu erhalten.',
+      newsletterDescription: 'Abonnieren Sie meinen Newsletter, um mehr über Persönlichkeitspsychologie zu erfahren und Updates zu neuen Forschungsergebnissen zu erhalten.',
       emailPlaceholder: 'Geben Sie Ihre E-Mail-Adresse ein',
       subscribeButton: 'Abonnieren',
       submittingButton: 'Wird abonniert...',
@@ -69,6 +70,14 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
 
   const t = content[language];
   
+  useEffect(() => {
+  // Scroll to top when results page loads
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []); 
+
   // Preload the PDF component when the page is visible
   useEffect(() => {
     // Use a small delay to not block the initial render
@@ -125,6 +134,14 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
       <p>{t.summary}</p>
       
       {/* Results visualization */}
+      <div className="radar-chart-container">
+        <h3>{language === 'en' ? 'Profile Overview' : 'Profilübersicht'}</h3>
+        <RadarChart 
+          results={testResults.domainResults} 
+          language={language}
+        />
+      </div>
+
       <div className="results-visualization">
         {testResults.domainResults.map((result) => {
           const domainName = language === 'en' 
