@@ -1,17 +1,109 @@
 ---
-title: 'My First Academic Blog Post'
-date: '2023-01-15'
-excerpt: 'A brief introduction to my research interests and recent work.'
+title: 'Automatisierte Fragebogenentwicklung'
+date: '2025-03-26'
+excerpt: 'Wie Fragebogen-Items mithilfe von LLMs automatisch generiert und validiert werden können'
 ---
 
-# Welcome to my academic blog!
+# KI-gestütztes Tool zur Fragebogenentwicklung: Ein innovativer Ansatz für HR und Organisationspsychologie
 
-This is the content of my first blog post. I can write in **Markdown** which makes it easy to format text, add [links](https://example.com), and even include code snippets:
+*Ein Freizeitprojekt zur Effizienzsteigerung in der psychometrischen Fragebogenentwicklung durch moderne KI-Technologien*
 
-```python
-def hello_world():
-    print("Hello, academic world!")
-```
+![AI Tool Screenshot](/images/blog/ai-tool1.gif)
 
-# Hallo^1^
-test^1^
+## Die Herausforderung der Fragebogenentwicklung
+
+Die Entwicklung qualitativ hochwertiger Fragebögen stellt für viele Organisationen eine erhebliche Herausforderung dar. 
+Besonders in kleineren Unternehmen ohne spezialisierte Fachkräfte im Bereich Psychometrie sind Zeit, Ressourcen und methodisches Know-how oft begrenzt. 
+Ob Mitarbeiterbefragung, Self-Assessment oder 360-Grad-Feedback – der traditionelle Entwicklungsprozess erfordert umfangreiche Expertise und durchläuft zahlreiche zeitintensive Phasen:
+
+- Präzise Definition der zu messenden Konstrukte
+- Systematische Entwicklung geeigneter Fragen (Items)
+- Umfangreiche Pilottests mit Testpersonen
+- Statistische Analysen zur Überprüfung der Qualität
+- Mehrfache Überarbeitungsschleifen
+
+## Innovation durch KI-Unterstützung
+
+Die aktuelle Forschung zeigt vielversprechende Möglichkeiten, die frühen Phasen der Fragebogenentwicklung effizienter zu gestalten, ohne methodische Standards zu vernachlässigen. 
+Das hier vorgestellte Tool setzt genau an diesem Punkt an und nutzt moderne Technologien, um den Prozess der Itemgenerierung und -validierung zu optimieren.
+
+## Kernfunktionen des Tools
+
+Das entwickelte Tool unterstützt HR-Fachkräfte, Berater:innen und Organisationspsycholog:innen durch folgende Funktionen:
+
+### 1. KI-gestützte Itemgenerierung
+- Automatische Erstellung von Items basierend auf Konstruktbeschreibungen
+- Nutzung der Claude API für hochwertige, kontextsensitive Formulierungen
+- Integration selbst entwickelter Items möglich
+
+### 2. Qualitätssicherung
+- Automatische Prüfung auf Best Practices der Itemformulierung
+- Berücksichtigung psychometrischer Grundprinzipien
+- Möglichkeit zur Entwicklung von Items, die für den Beruf kontextualisiert sind
+
+### 3. Semantische Analyse
+- Erstellung von Embeddings der generierten Items mittels BERT & sBERT
+- Berechnung semantischer Ähnlichkeiten zwischen Items und Konstruktdefinitionen 
+- Identifikation inhaltlicher Überlappungen und Abweichungen
+- Unterstützung bei der Auswahl geeigneter Items
+
+### 4. Vorläufige Strukturanalyse ohne Datenerhebung
+- Schätzung & Visualisierung von Item-Zusammenhängen
+- Vorläufige Faktorstrukturanalyse zur Identifikation suboptimaler Items
+- Frühzeitige Erkennung potenzieller Probleme vor der eigentlichen Datenerhebung
+
+## Anwendungsbeispiel: Verträglichkeitsskala
+
+Ein praktisches Beispiel zur Veranschaulichung der Funktionsweise zeigt die Entwicklung einer Skala zur Messung der Persönlichkeitseigenschaft "Verträglichkeit":
+
+1. Es fällt mir leicht, mich in die Gefühle anderer hineinzuversetzen.
+2. Mir fällt es schwer, anderen Menschen zu vertrauen. (-)
+3. Ich habe mit anderen wenig Mitgefühl. (-)
+4. Ich zeige Verständnis, auch wenn andere eine andere Sicht der Dinge haben.
+5. Ich bin anderen gegenüber misstrauisch. (-)
+6. Die Sorgen anderer Menschen berühren mich kaum. (-)
+7. Ich bin nachsichtig, vergebe anderen leicht.
+
+*Items mit (-) sind Indikatoren für niedrige Verträglichkeit.*
+
+Die besondere Herausforderung: Können Sie erkennen, welche Items vom Menschen und welche vom Tool erstellt wurden?
+
+## Wissenschaftliche Grundlage
+
+Das Tool basiert auf aktueller Forschung im Bereich der KI-gestützten Fragebogenentwicklung:
+
+- Guenole et al. (2024) haben wegweisende Methoden zur automatisierten Itemgenerierung vorgestellt
+- Hommel & Arslan (2024) zeigen Möglichkeiten zur Evaluation semantischer Kohärenz ohne umfangreiche Datenerhebung auf
+
+## Wichtige Einschränkungen
+
+Das Tool verfolgt einen "Human-in-the-Loop"-Ansatz und ist explizit als Unterstützung für die erste Phase der Itementwicklung konzipiert. Es ersetzt nicht:
+
+- Die kritische Beurteilung durch Fachexpert:innen
+- Die empirische Validierung mit Zielgruppen
+- Die notwendige Überarbeitung basierend auf tatsächlichen Daten
+
+Die eingesetzten Methoden zeigen vielversprechende Ergebnisse, befinden sich jedoch noch in einem Entwicklungsstadium und bedürfen weiterer wissenschaftlicher Validierung.
+
+## Nutzen und Potenzial
+
+Der Mehrwert des Tools liegt besonders in folgenden Bereichen:
+
+- **Zeitersparnis**: Beschleunigung der ersten Entwicklungsphase durch automatisierte Itemgenerierung
+- **Qualitätsverbesserung**: Systematische Überprüfung auf psychometrische Best Practices
+- **Methodische Unterstützung**: Hilfestellung für Teams ohne spezialisierte psychometrische Expertise
+- **Frühzeitige Optimierung**: Identifikation potenzieller Probleme vor der aufwändigen Datenerhebung
+
+## Ausblick und Feedback
+
+Als Freizeitprojekt befindet sich das Tool in kontinuierlicher Weiterentwicklung. Feedback von Praktiker:innen und Expert:innen ist ausdrücklich erwünscht! Besonders interessant sind Erfahrungsberichte zur praktischen Anwendbarkeit und Vorschläge zur Erweiterung der Funktionalität.
+
+---
+
+**Über den Entwickler**: *[Hier könnte eine kurze Beschreibung des Entwicklers stehen, falls gewünscht]*
+
+**Kontakt**: *[Kontaktinformationen, falls gewünscht]*
+
+**Quellen**:
+- Guenole, N. et al. (2024). [Titel der Publikation zur automatisierten Itemgenerierung]
+- Hommel, B. & Arslan, R. (2024). [Titel der Publikation zur semantischen Evaluation]

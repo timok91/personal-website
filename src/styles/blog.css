@@ -71,3 +71,12 @@
     overflow-x: auto;
     margin-bottom: 1.5rem;
   }
+
+  .blog-content img {
+    max-width: 700px !important;
+    height: auto !important;
+    display: block !important;
+    margin: 2rem auto !important;
+    border: 1px solid var(--primary-color) !important; /* Add this line */
+    border-radius: 8px !important; /* Optional: for rounded corners */
+  }
