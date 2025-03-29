@@ -17,15 +17,13 @@ async function processMarkdown(content: string): Promise<string> {
     const latexInline: string[] = [];
     
     // Replace block LaTeX with placeholders
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let protectedContent = content.replace(/\$\$([\s\S]*?)\$\$/g, (match, formula) => {
+    let protectedContent = content.replace(/\$\$([\s\S]*?)\$\$/g, (match) => {
       latexBlocks.push(match);
       return `LATEX_BLOCK_${latexBlocks.length - 1}`;
     });
     
     // Replace inline LaTeX with placeholders
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protectedContent = protectedContent.replace(/\$([^\$]+?)\$/g, (match, formula) => {
+    protectedContent = protectedContent.replace(/\$([^\$]+?)\$/g, (match) => {
       latexInline.push(match);
       return `LATEX_INLINE_${latexInline.length - 1}`;
     });
@@ -56,16 +54,20 @@ async function processMarkdown(content: string): Promise<string> {
   }
 }
 
-// Define the proper Next.js page interface
-interface BlogPostProps {
-  params: {
-    slug: string;
-  };
+// Define a specific type for the props that matches what your environment expects
+interface BlogPostParams {
+  params: { slug: string } | Promise<{ slug: string }>;
 }
 
-export default async function BlogPost({ params }: BlogPostProps): Promise<React.ReactElement> {
+// Using the original type signature that was working before
+export default async function BlogPost(props: BlogPostParams): Promise<React.ReactElement> {
   try {
-    const { slug } = params;
+    // Use a type assertion to help TypeScript understand the structure
+    const { params } = props;
+    
+    // Await params in case they're a promise 
+    const resolvedParams = await Promise.resolve(params);
+    const slug = resolvedParams.slug || 'not-found';
 
     const postsDirectory = path.join(process.cwd(), 'src', 'posts');
     const filePath = path.join(postsDirectory, `${slug}.mdx`);
