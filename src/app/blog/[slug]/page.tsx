@@ -7,33 +7,7 @@ import html from 'remark-html';
 import supersub from 'remark-supersub';
 import BlogPostClient from '../../../components/BlogPostClient';
 
-
 export const revalidate = 3600; // Revalidate every hour
-
-// This function tells Next.js which static pages to generate
-export async function generateStaticParams() {
-  const postsDirectory = path.join(process.cwd(), 'src', 'posts');
-
-  // Check if directory exists
-  if (!fs.existsSync(postsDirectory)) {
-    console.warn(`Posts directory not found: ${postsDirectory}`);
-    return [];
-  }
-
-  try {
-    const filenames = await fs.promises.readdir(postsDirectory);
-
-    // Get all .mdx files and convert to slug params
-    return filenames
-      .filter((filename) => filename.endsWith('.mdx'))
-      .map((filename) => ({
-        slug: filename.replace(/\.mdx$/, ''),
-      }));
-  } catch (error) {
-    console.error('Error reading posts directory:', error);
-    return [];
-  }
-}
 
 // Process markdown content to HTML asynchronously
 async function processMarkdown(content: string): Promise<string> {
@@ -81,16 +55,13 @@ async function processMarkdown(content: string): Promise<string> {
     return '';
   }
 }
-// Define a specific type for the props instead of using 'any'
+
+// Define a specific type for the props
 interface BlogPostParams {
   params: { slug: string } | Promise<{ slug: string }>;
 }
 
-// Using a specific type signature and React.ReactElement return type
-export default async function BlogPost(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  props: BlogPostParams | any
-): Promise<React.ReactElement> {
+export default async function BlogPost(props: BlogPostParams): Promise<React.ReactElement> {
   try {
     // Use a type assertion to help TypeScript understand the structure
     const { params } = props as { params: { slug: string } | Promise<{ slug: string }> };
@@ -123,6 +94,7 @@ export default async function BlogPost(
         title={data.title as string}
         date={data.date as string}
         content={htmlContent}
+        tags={data.tags as string[] | undefined}
       />
     );
   } catch (error) {

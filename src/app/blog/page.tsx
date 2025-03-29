@@ -1,7 +1,8 @@
+// src/app/blog/page.tsx
 import path from 'path';
 import matter from 'gray-matter';
-import Link from 'next/link';
 import { promises as fs } from 'fs';
+import BlogClientPage from '@/components/BlogClientPage';
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -9,6 +10,7 @@ interface PostFrontMatter {
   title: string;
   date: string;
   excerpt: string;
+  tags?: string[];
 }
 
 interface Post {
@@ -51,21 +53,7 @@ async function generateBlogList(): Promise<Post[]> {
 
 export default async function Blog() {
   const posts = await generateBlogList();
-
-  return (
-    <div className="blog-container">
-      <h1>Blog</h1>
-      <div className="posts-grid">
-        {posts.map((post) => (
-          <Link key={post.slug} href={`/blog/${post.slug}`}>
-            <div className="post-card">
-              <h2>{post.frontMatter.title}</h2>
-              <p className="date">{post.frontMatter.date}</p>
-              <p className="excerpt">{post.frontMatter.excerpt}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
+  
+  // Server component that passes data to the client component
+  return <BlogClientPage initialPosts={posts} />;
 }
