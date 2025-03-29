@@ -56,19 +56,16 @@ async function processMarkdown(content: string): Promise<string> {
   }
 }
 
-// Define a specific type for the props
-interface BlogPostParams {
-  params: { slug: string } | Promise<{ slug: string }>;
+// Define the proper Next.js page interface
+interface BlogPostProps {
+  params: {
+    slug: string;
+  };
 }
 
-export default async function BlogPost(props: BlogPostParams): Promise<React.ReactElement> {
+export default async function BlogPost({ params }: BlogPostProps): Promise<React.ReactElement> {
   try {
-    // Use a type assertion to help TypeScript understand the structure
-    const { params } = props as { params: { slug: string } | Promise<{ slug: string }> };
-    
-    // Await params in case they're a promise 
-    const resolvedParams = await Promise.resolve(params);
-    const slug = resolvedParams.slug || 'not-found';
+    const { slug } = params;
 
     const postsDirectory = path.join(process.cwd(), 'src', 'posts');
     const filePath = path.join(postsDirectory, `${slug}.mdx`);
