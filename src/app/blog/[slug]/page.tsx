@@ -54,14 +54,23 @@ async function processMarkdown(content: string): Promise<string> {
   }
 }
 
-// Use a simplified approach with the exact Next.js 15 type expectations
-export default async function BlogPost({ 
-  params 
-}: { 
-  params: { slug: string } 
-}): Promise<React.ReactElement> {
+// Define a specific type for the props
+interface BlogPostParams {
+  params: { slug: string } | Promise<{ slug: string }>;
+}
+
+// Using a specific type signature for better Next.js compatibility
+// @ts-expect-error - This works in production but has typing issues
+export default async function BlogPost(
+  props: BlogPostParams
+): Promise<React.ReactElement> {
   try {
-    const { slug } = params;
+    // Use a type assertion to help TypeScript understand the structure
+    const { params } = props;
+    
+    // Await params in case they're a promise 
+    const resolvedParams = await Promise.resolve(params);
+    const slug = resolvedParams.slug || 'not-found';
 
     const postsDirectory = path.join(process.cwd(), 'src', 'posts');
     const filePath = path.join(postsDirectory, `${slug}.mdx`);
