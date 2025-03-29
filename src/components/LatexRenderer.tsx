@@ -1,20 +1,22 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 
-export default function LatexRenderer({ content }: { content: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+interface LatexRendererProps {
+  content: string;
+}
+
+export default function LatexRenderer({ content }: LatexRendererProps) {
+  const [processedContent, setProcessedContent] = useState('');
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
     // Process block formulas
-    let processedContent = content;
+    let htmlContent = content;
     const blockRegex = /\$\$([\s\S]*?)\$\$/g;
     
-    processedContent = processedContent.replace(blockRegex, (match, formula) => {
+    htmlContent = htmlContent.replace(blockRegex, (match, formula) => {
       try {
         const rendered = katex.renderToString(formula.trim(), {
           displayMode: true,
@@ -30,7 +32,7 @@ export default function LatexRenderer({ content }: { content: string }) {
     // Process inline formulas
     const inlineRegex = /\$([^\$]+?)\$/g;
     
-    processedContent = processedContent.replace(inlineRegex, (match, formula) => {
+    htmlContent = htmlContent.replace(inlineRegex, (match, formula) => {
       try {
         const rendered = katex.renderToString(formula.trim(), {
           displayMode: false,
@@ -43,13 +45,15 @@ export default function LatexRenderer({ content }: { content: string }) {
       }
     });
     
-    // Set the processed content
-    containerRef.current.innerHTML = processedContent;
+    // Update the state with processed content
+    setProcessedContent(htmlContent);
   }, [content]);
 
+  // Render the processed content using dangerouslySetInnerHTML
   return (
-    <div className="blog-content" ref={containerRef}>
-      {/* Content will be rendered here */}
-    </div>
+    <div 
+      className="blog-processed-content"
+      dangerouslySetInnerHTML={{ __html: processedContent }} 
+    />
   );
 }
