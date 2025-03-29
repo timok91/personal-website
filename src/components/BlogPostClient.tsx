@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import LatexRenderer from './LatexRenderer';
+import 'katex/dist/katex.min.css';
 
 interface BlogPostClientProps {
   title: string;
@@ -13,7 +15,7 @@ export default function BlogPostClient({ title, date, content }: BlogPostClientP
     <div className="blog-post-container">
       <h1>{title}</h1>
       <p className="date">{date}</p>
-      <div className="blog-content" dangerouslySetInnerHTML={{ __html: content }} />
+      <LatexRenderer content={content} />    
     </div>
   );
 }

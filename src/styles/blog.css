@@ -53,6 +53,19 @@
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
+
+  .blog-content h2 {
+    color: var(--primary-color);
+  }
+
+  .blog-content h3 {
+    color: var(--primary-color);
+    opacity: 0.5;
+  }
+
+  .blog-content h4 {
+    opacity: 0.8;
+  }
   
   .blog-content p {
     margin-bottom: 1.5rem;
@@ -80,3 +93,4 @@
     border: 1px solid var(--primary-color) !important; /* Add this line */
     border-radius: 8px !important; /* Optional: for rounded corners */
   }
+

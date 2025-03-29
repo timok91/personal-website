@@ -7,6 +7,7 @@ import html from 'remark-html';
 import supersub from 'remark-supersub';
 import BlogPostClient from '../../../components/BlogPostClient';
 
+
 export const revalidate = 3600; // Revalidate every hour
 
 // This function tells Next.js which static pages to generate
@@ -37,17 +38,49 @@ export async function generateStaticParams() {
 // Process markdown content to HTML asynchronously
 async function processMarkdown(content: string): Promise<string> {
   try {
+    // First, protect LaTeX blocks by replacing them with placeholders
+    const latexBlocks: string[] = [];
+    const latexInline: string[] = [];
+    
+    // Replace block LaTeX with placeholders
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let protectedContent = content.replace(/\$\$([\s\S]*?)\$\$/g, (match, formula) => {
+      latexBlocks.push(match);
+      return `LATEX_BLOCK_${latexBlocks.length - 1}`;
+    });
+    
+    // Replace inline LaTeX with placeholders
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protectedContent = protectedContent.replace(/\$([^\$]+?)\$/g, (match, formula) => {
+      latexInline.push(match);
+      return `LATEX_INLINE_${latexInline.length - 1}`;
+    });
+    
+    // Now process with supersub (it won't touch our placeholders)
     const processedContent = await remark()
-      .use(supersub) // Add this line
-      .use(html)
-      .process(content);
-    return processedContent.toString();
+      .use(supersub)
+      .use(html, { sanitize: false })
+      .process(protectedContent);
+    
+    // Convert back to string
+    let result = processedContent.toString();
+    
+    // Restore LaTeX blocks
+    latexBlocks.forEach((block, i) => {
+      result = result.replace(`LATEX_BLOCK_${i}`, block);
+    });
+    
+    // Restore inline LaTeX
+    latexInline.forEach((inline, i) => {
+      result = result.replace(`LATEX_INLINE_${i}`, inline);
+    });
+    
+    return result;
   } catch (error) {
     console.error('Error processing markdown:', error);
     return '';
   }
 }
-
 // Define a specific type for the props instead of using 'any'
 interface BlogPostParams {
   params: { slug: string } | Promise<{ slug: string }>;

@@ -107,3 +107,77 @@ Als Freizeitprojekt befindet sich das Tool in kontinuierlicher Weiterentwicklung
 **Quellen**:
 - Guenole, N. et al. (2024). [Titel der Publikation zur automatisierten Itemgenerierung]
 - Hommel, B. & Arslan, R. (2024). [Titel der Publikation zur semantischen Evaluation]
+
+### Pseudo-Faktorenanalyse
+#### Traditioneller Ansatz
+
+Abc 
+
+#### Kosinus-Ähnlichkeit und Pearson-Korrelation
+Wir betrachten zwei Vektoren 
+$$
+x = (x_1, x_2, \dots, x_n), \quad y = (y_1, y_2, \dots, y_n).
+$$
+
+##### Schritt 1: Berechnung der Mittelwerte
+Berechne den Mittelwert der Komponenten von $$ x $$ und $$ y $$:
+
+$$
+\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i, \quad \bar{y} = \frac{1}{n}\sum_{i=1}^n y_i.
+$$
+
+##### Schritt 2: Zentrieren der Vektoren
+Definiere die zentrierten Vektoren, indem du von jedem Element den Mittelwert abziehst:
+
+$$
+\tilde{x} = x - \bar{x} = (x_1 - \bar{x}, \dots, x_n - \bar{x}), \quad \tilde{y} = y - \bar{y} = (y_1 - \bar{y}, \dots, y_n - \bar{y}).
+$$
+
+##### Schritt 3: Definition der Pearson-Korrelation
+Die Pearson-Korrelation $$r$$ wird definiert als
+
+$$
+r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}\sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}.
+$$
+
+Beachte, dass der Zähler dem Skalarprodukt der zentrierten Vektoren entspricht:
+
+$$
+\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y}) = \tilde{\mathbf{x}} \cdot \tilde{\mathbf{y}},
+$$
+
+und die Nenner den euklidischen Normen der zentrierten Vektoren:
+
+$$
+\|\tilde{\mathbf{x}}\| = \sqrt{\sum_{i=1}^n (x_i-\bar{x})^2}, \quad \|\tilde{\mathbf{y}}\| = \sqrt{\sum_{i=1}^n (y_i-\bar{y})^2}.
+$$
+
+Somit kann man schreiben:
+
+$$
+r = \frac{\tilde{\mathbf{x}} \cdot \tilde{\mathbf{y}}}{\|\tilde{\mathbf{x}}\| \, \|\tilde{\mathbf{y}}\|}.
+$$
+
+##### Schritt 4: Definition der Cosinus-Ähnlichkeit
+Die Cosinus-Ähnlichkeit zwischen zwei Vektoren $$a$$ und $$b$$ ist definiert als
+
+$$
+\cos(\theta) = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{a}\|\,\|\mathbf{b}\|}.
+$$
+
+Setzen wir hier die zentrierten Vektoren $$\tilde{x}$$ und $$\tilde{y}$$ ein, erhalten wir:
+
+$$
+\cos(\theta_{\text{zentriert}}) = \frac{\tilde{\mathbf{x}} \cdot \tilde{\mathbf{y}}}{\|\tilde{\mathbf{x}}\|\,\|\tilde{\mathbf{y}}\|}.
+$$
+
+##### Schritt 5: Vergleich der beiden Ausdrücke
+Wir vergleichen die beiden Gleichungen:
+
+$$
+r = \frac{\tilde{\mathbf{x}} \cdot \tilde{\mathbf{y}}}{\|\tilde{\mathbf{x}}\|\,\|\tilde{\mathbf{y}}\|}, \quad \cos(\theta_{\text{zentriert}}) = \frac{\tilde{\mathbf{x}} \cdot \tilde{\mathbf{y}}}{\|\tilde{\mathbf{x}}\|\,\|\tilde{\mathbf{y}}\|}.
+$$
+
+Da beide Ausdrücke identisch sind, folgt: $$ r = \cos(\theta_{\text{zentriert}}). $$
+
+Die Pearson-Korrelation entspricht der Cosinus-Ähnlichkeit, wenn die Daten vorher zentriert werden. Dadurch wird deutlich, dass der Pearson-Korrelationskoeffizient als eine zentrierte Variante der Cosinus-Ähnlichkeit verstanden werden kann.
