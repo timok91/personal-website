@@ -11,6 +11,7 @@ interface PostFrontMatter {
   date: string;
   excerpt: string;
   tags?: string[];
+  draft?: boolean;
 }
 
 interface Post {
@@ -37,8 +38,14 @@ async function generateBlogList(): Promise<Post[]> {
       })
     );
 
+    // Filter out draft posts in production environment
+    const isProduction = process.env.NODE_ENV === 'production';
+    const filteredPosts = isProduction 
+      ? posts.filter(post => !(post.frontMatter.draft === true))
+      : posts;
+
     // Sort posts by date (descending)
-    return posts.sort((a, b) => {
+    return filteredPosts.sort((a, b) => {
       if (a.frontMatter.date < b.frontMatter.date) {
         return 1;
       } else {
