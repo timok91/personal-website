@@ -393,3 +393,138 @@ h2[id], h3[id], h4[id] {
   overflow-x: auto;
 }
 
+.social-share {
+  margin: 3rem 0 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid var(--accent-color) !important;
+  text-align: center;
+}
+
+.share-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.share-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background-color: #f1f1f1;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.share-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Platform-specific colors on hover */
+.share-button.twitter:hover {
+  background-color: #1DA1F2;
+  color: white;
+}
+
+.share-button.linkedin:hover {
+  background-color: #0077B5;
+  color: white;
+}
+
+.share-button.facebook:hover {
+  background-color: #4267B2;
+  color: white;
+}
+
+.share-button.email:hover {
+  background-color: #EA4335;
+  color: white;
+}
+
+.share-button.link:hover, 
+.share-button.citation:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Tooltip styles */
+.tooltip {
+  position: absolute;
+  bottom: -35px;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #333;
+}
+
+/* Success message for copy operations */
+.copy-success {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  animation: fadeInOut 2s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .share-buttons {
+    gap: 0.6rem;
+  }
+  
+  .share-button {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .tooltip {
+    display: none; /* Hide tooltips on mobile to prevent layout issues */
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+

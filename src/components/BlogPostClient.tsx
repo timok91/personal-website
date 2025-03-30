@@ -2,8 +2,10 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import LatexRenderer from './LatexRenderer';
 import TableOfContents from './TableOfContents';
+import SocialShare from './SocialShare';
 import 'katex/dist/katex.min.css';
 
 interface BlogPostClientProps {
@@ -18,6 +20,12 @@ export default function BlogPostClient({ title, date, content, tags }: BlogPostC
   const contentRef = useRef<HTMLDivElement>(null);
   const [isContentReady, setIsContentReady] = useState(false);
   const [hasToc, setHasToc] = useState(false);
+  const pathname = usePathname();
+  
+  // Get the full URL for sharing
+  const fullUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}${pathname}`
+    : '';
 
   // Add IDs to headings after content is rendered for the TOC
   useEffect(() => {
@@ -89,6 +97,13 @@ export default function BlogPostClient({ title, date, content, tags }: BlogPostC
           <LatexRenderer content={content} />    
         </div>
       </div>
+      
+      {/* Add social sharing component */}
+      <SocialShare 
+        title={title}
+        url={fullUrl}
+        publishedDate={date}
+      />
     </div>
   );
 }
