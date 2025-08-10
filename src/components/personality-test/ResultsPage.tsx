@@ -29,14 +29,14 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
   // Content for both languages
   const content = {
     en: {
-      title: 'Your Personality Test Results',
+      title: 'Your Personality Assessment Results',
       summary: 'Below are your scores across different personality domains. These scores reflect your responses to the assessment questions.',
       downloadPDF: 'Download PDF Report',
       preparingPDF: 'Preparing PDF...',
       loadingPDF: 'Loading PDF Generator...',
-      returnToStart: 'Take Another Test',
+      returnToStart: 'Take Another Assessment',
       newsletterTitle: 'Stay Updated',
-      newsletterDescription: 'Subscribe to my newsletter to learn more about personality psychology and receive updates on new research.',
+      newsletterDescription: 'Subscribe to my newsletter to learn more about psychology and receive updates on new research.',
       emailPlaceholder: 'Enter your email address',
       subscribeButton: 'Subscribe',
       submittingButton: 'Subscribing...',
@@ -48,14 +48,14 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ language, testResults, sessio
       score: 'Score'
     },
     de: {
-      title: 'Ihre Persönlichkeitstest-Ergebnisse',
+      title: 'Ihre Persönlichkeitsfragebogen-Ergebnisse',
       summary: 'Unten finden Sie Ihre Punktzahlen in verschiedenen Persönlichkeitsbereichen. Diese Werte spiegeln Ihre Antworten auf die Beurteilungsfragen wider.',
       downloadPDF: 'PDF-Bericht herunterladen',
       preparingPDF: 'PDF wird vorbereitet...',
       loadingPDF: 'PDF-Generator wird geladen...',
-      returnToStart: 'Einen weiteren Test machen',
+      returnToStart: 'Einen weiteren Fragebogen ausfüllen',
       newsletterTitle: 'Bleiben Sie auf dem Laufenden',
-      newsletterDescription: 'Abonnieren Sie meinen Newsletter, um mehr über Persönlichkeitspsychologie zu erfahren und Updates zu neuen Forschungsergebnissen zu erhalten.',
+      newsletterDescription: 'Abonnieren Sie meinen Newsletter, um mehr über Psychologie zu erfahren und Updates zu neuen Forschungsergebnissen zu erhalten.',
       emailPlaceholder: 'Geben Sie Ihre E-Mail-Adresse ein',
       subscribeButton: 'Abonnieren',
       submittingButton: 'Wird abonniert...',

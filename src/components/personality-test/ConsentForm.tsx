@@ -15,7 +15,7 @@ const ConsentForm: React.FC<ConsentFormProps> = ({ language, onSubmit }) => {
   const content = {
     en: {
       title: 'Data Privacy Consent',
-      description: 'Before taking the test, please read and agree to our data privacy terms:',
+      description: 'Before taking the assessment, please read and agree to our data privacy terms:',
       consentText: `
         <p><strong>Data Usage:</strong> Your responses will be stored anonymously and used for research purposes. No personally identifiable information will be collected.</p>
         <p><strong>Data Retention:</strong> Anonymized data will be retained for 10 years for research purposes.</p>
@@ -29,7 +29,7 @@ const ConsentForm: React.FC<ConsentFormProps> = ({ language, onSubmit }) => {
     },
     de: {
       title: 'Datenschutz-Einwilligung',
-      description: 'Bevor Sie den Test durchführen, lesen und akzeptieren Sie bitte unsere Datenschutzbestimmungen:',
+      description: 'Bevor Sie den Fragebogen ausfüllen, lesen und akzeptieren Sie bitte unsere Datenschutzbestimmungen:',
       consentText: `
         <p><strong>Datennutzung:</strong> Ihre Antworten werden anonym gespeichert und für Forschungszwecke verwendet. Es werden keine personenidentifizierenden Informationen erfasst.</p>
         <p><strong>Datenspeicherung:</strong> Anonymisierte Daten werden für 10 Jahre zu Forschungszwecken aufbewahrt.</p>

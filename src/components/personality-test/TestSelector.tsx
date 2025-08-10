@@ -15,17 +15,17 @@ const TestSelector: React.FC<TestSelectorProps> = ({ language, tests, onSelect }
   // Content for both languages
   const content = {
     en: {
-      title: 'Choose a Personality Test',
-      description: 'Please select one of the available personality tests:',
-      singleTestMessage: 'We currently only have 1 personality test available. Please select it to continue.',
-      noTests: 'No tests are currently available. Please check back later.',
+      title: 'Choose a Personality Assessment',
+      description: 'Please select one of the available personality assessments:',
+      singleTestMessage: 'We currently only have 1 personality assessment available. Please select it to continue.',
+      noTests: 'No assessments are currently available. Please check back later.',
       selectButton: 'Select'
     },
     de: {
-      title: 'Wählen Sie einen Persönlichkeitstest',
-      description: 'Bitte wählen Sie einen der verfügbaren Persönlichkeitstests:',
-      singleTestMessage: 'Wir haben momentan nur 1 Persönlichkeitstest verfügbar. Bitte wählen Sie ihn aus, um fortzufahren.',
-      noTests: 'Derzeit sind keine Tests verfügbar. Bitte schauen Sie später wieder vorbei.',
+      title: 'Wählen Sie einen Persönlichkeitsfragebogen',
+      description: 'Bitte wählen Sie einen der verfügbaren Persönlichkeitsfragebögen:',
+      singleTestMessage: 'Wir haben momentan nur 1 Persönlichkeitsfragebogen verfügbar. Bitte wählen Sie ihn aus, um fortzufahren.',
+      noTests: 'Derzeit sind keine Fragebögen verfügbar. Bitte schauen Sie später wieder vorbei.',
       selectButton: 'Auswählen'
     }
   };
@@ -43,8 +43,8 @@ const TestSelector: React.FC<TestSelectorProps> = ({ language, tests, onSelect }
 
   // Add a special message when there's only one test
   const singleTestMessage = language === 'en' 
-    ? 'We currently only have 1 personality test available. Please select it to continue.'
-    : 'Wir haben momentan nur 1 Persönlichkeitstest verfügbar. Bitte wählen Sie ihn aus, um fortzufahren.';
+    ? 'We currently only have 1 personality assessment available. Please select it to continue.'
+    : 'Wir haben momentan nur 1 Persönlichkeitsfragebogen verfügbar. Bitte wählen Sie ihn aus, um fortzufahren.';
 
 
   return (

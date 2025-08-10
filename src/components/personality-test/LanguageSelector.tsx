@@ -12,13 +12,13 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onSelect, selectedL
   // Content for both languages
   const content = {
     en: {
-      title: 'Welcome to the Personality Test',
+      title: 'Welcome to the Personality Assessment',
       description: 'Before we begin, please select your preferred language:',
       english: 'English',
       german: 'German'
     },
     de: {
-      title: 'Willkommen zum Persönlichkeitstest',
+      title: 'Willkommen zum Persönlichkeitsfragebogen',
       description: 'Bevor wir beginnen, wählen Sie bitte Ihre bevorzugte Sprache:',
       english: 'Englisch',
       german: 'Deutsch'

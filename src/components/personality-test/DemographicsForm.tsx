@@ -25,7 +25,7 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
   const content = {
     en: {
       title: 'Demographic Information',
-      description: 'Please provide the following demographic information for research purposes. This data helps us improve our test and understand different demographic patterns.',
+      description: 'Please provide the following demographic information for research purposes. This data helps us improve assessments and understand different demographic patterns.',
       ageLabel: 'Age',
       agePlaceholder: 'Enter your age',
       genderLabel: 'Gender',
@@ -52,15 +52,15 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
         { value: 'yes', label: 'Yes' },
         { value: 'no', label: 'No' }
       ],
-      previousLabel: 'Have you taken this test before?',
-      continueButton: 'Continue to Test',
+      previousLabel: 'Have you taken this assessment before?',
+      continueButton: 'Continue to Assessment',
       errorAge: 'Please enter a valid age (14-99)',
       errorGender: 'Please select your gender',
       errorLeadership: 'Please indicate whether you hold a leadership position'
     },
     de: {
       title: 'Demografische Informationen',
-      description: 'Bitte geben Sie die folgenden demografischen Informationen für Forschungszwecke an. Diese Daten helfen uns, unseren Test zu verbessern und verschiedene demografische Muster zu verstehen.',
+      description: 'Bitte geben Sie die folgenden demografischen Informationen für Forschungszwecke an. Diese Daten helfen uns, Fragebögen zu verbessern und verschiedene demografische Muster zu verstehen.',
       ageLabel: 'Alter',
       agePlaceholder: 'Geben Sie Ihr Alter ein',
       genderLabel: 'Geschlecht',
@@ -87,8 +87,8 @@ const DemographicsForm: React.FC<DemographicsFormProps> = ({ language, onSubmit 
         { value: 'yes', label: 'Ja' },
         { value: 'no', label: 'Nein' }
       ],
-      previousLabel: 'Haben Sie diesen Test schon einmal gemacht?',
-      continueButton: 'Weiter zum Test',
+      previousLabel: 'Haben Sie diesen Fragebogen schon einmal ausgefüllt?',
+      continueButton: 'Weiter zum Fragebogen',
       errorAge: 'Bitte wählen Sie Ihre Altersgruppe',
       errorGender: 'Bitte wählen Sie Ihr Geschlecht',
       errorLeadership: 'Bitte geben Sie an, ob Sie eine Führungsposition innehaben'

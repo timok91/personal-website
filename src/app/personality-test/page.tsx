@@ -4,7 +4,7 @@ import { PersonalityTestClient } from '../../components/personality-test/Persona
 export default function PersonalityTestPage() {
   return (
     <div className="personality-test-container">
-      <h1>Personality Test</h1>
+      <h1>Personality Assessment</h1>
       <PersonalityTestClient />
     </div>
   );

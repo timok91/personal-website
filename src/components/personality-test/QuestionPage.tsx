@@ -73,7 +73,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({
       ],
       previousButton: 'Previous',
       nextButton: 'Next',
-      completeButton: 'Complete Test',
+      completeButton: 'Complete Assessment',
       loading: 'Loading questions...',
       error: 'Error loading questions: ',
       allQuestionsNote: 'Please answer all questions to continue'
@@ -97,7 +97,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({
       ],
       previousButton: 'Zurück',
       nextButton: 'Weiter',
-      completeButton: 'Test abschließen',
+      completeButton: 'Fragebogen abschließen',
       loading: 'Fragen werden geladen...',
       error: 'Fehler beim Laden der Fragen: ',
       allQuestionsNote: 'Bitte beantworten Sie alle Fragen, um fortzufahren'

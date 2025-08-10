@@ -80,13 +80,13 @@ export const PersonalityTestClient: React.FC = () => {
         setStage('test-selection');
       } else {
         // No tests available
-        setError('No tests are currently available. Please try again later.');
+        setError('No assessments are currently available. Please try again later.');
       }
       
       setIsLoading(false);
     } catch (err) {
       console.error('Error in language selection:', err);
-      setError('Failed to initialize test. Please try again.');
+      setError('Failed to initialize assessment. Please try again.');
       setIsLoading(false);
     }
   };

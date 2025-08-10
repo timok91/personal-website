@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
 // Content translations
 const content = {
   en: {
-    title: 'Personality Test Results',
+    title: 'Personality Assessment Results',
     summary: 'Summary of your personality assessment',
     domains: 'Your Personality Domains',
     score: 'Score',
@@ -125,10 +125,10 @@ const content = {
     high: 'High',
     generatedOn: 'Generated on',
     interpretationNote: 'Note: These results are based on self-reported data and should be interpreted as general insights about your personality tendencies. They are not a professional psychological assessment.',
-    copyright: '© Timo Krug - Personality Assessment Tool',
+    copyright: '',
   },
   de: {
-    title: 'Persönlichkeitstest-Ergebnisse',
+    title: 'Persönlichkeitsfragebogen-Ergebnisse',
     summary: 'Zusammenfassung Ihrer Persönlichkeitseinschätzung',
     domains: 'Ihre Persönlichkeitsbereiche',
     score: 'Punktzahl',
@@ -136,7 +136,7 @@ const content = {
     high: 'Hoch',
     generatedOn: 'Erstellt am',
     interpretationNote: 'Hinweis: Diese Ergebnisse basieren auf selbst gemeldeten Daten und sollten als allgemeine Einblicke in Ihre Persönlichkeitstendenzen interpretiert werden. Sie sind keine professionelle psychologische Bewertung.',
-    copyright: '© Timo Krug - Persönlichkeitsbewertungstool',
+    copyright: '',
   }
 };
 
